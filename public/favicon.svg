@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#05050a" />
+      <stop offset="50%" stop-color="#0a0a15" />
+      <stop offset="100%" stop-color="#121224" />
+    </linearGradient>
+    
+    <!-- Monogram Gradient (Matching the portfolio accents) -->
+    <linearGradient id="monoGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" />
+      <stop offset="50%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#f472b6" />
+    </linearGradient>
+
+    <!-- Sparkle/Accent Gradient -->
+    <linearGradient id="sparkleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f472b6" />
+    </linearGradient>
+
+    <!-- Border Gradient -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#c084fc" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#f472b6" stop-opacity="0.2" />
+    </linearGradient>
+
+    <!-- Drop Shadow / Glow Filter -->
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#818cf8" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Outer Squircle Box with Gradient Border -->
+  <rect x="20" y="20" width="472" height="472" rx="120" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="10" />
+
+  <!-- Monogram Group with Glow -->
+  <g filter="url(#glow)">
+    <!-- Stylized lowercase "m" and "b" paths -->
+    <path d="M 120 350 L 120 250 C 120 195 180 195 180 250 L 180 350 M 180 250 C 180 195 240 195 240 250 L 240 350 L 300 350 L 300 160 M 300 255 C 335 255 375 265 375 302.5 C 375 340 335 350 300 350" 
+          fill="none" 
+          stroke="url(#monoGrad)" 
+          stroke-width="36" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+
+    <!-- Sparkle/AI Star -->
+    <path d="M 380 150 Q 380 180 410 180 Q 380 180 380 210 Q 380 180 350 180 Q 380 180 380 150 Z" 
+          fill="url(#sparkleGrad)" />
+  </g>
+</svg>
