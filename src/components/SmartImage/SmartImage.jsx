@@ -9,13 +9,16 @@ import './SmartImage.css';
  * styled gradient plate with initials until the file lands — and again if it
  * fails to load. A broken-image icon is never shown.
  *
- * `ratio` reserves the box up front (no CLS), `priority` is used only for the
- * hero portrait, and decorative images should pass `alt=""`.
+ * `ratio` reserves the box up front (no CLS), `position` sets the `object-fit`
+ * focal point so a portrait photo is cropped from the bottom rather than
+ * through the face, `priority` is used only for the hero portrait, and
+ * decorative images should pass `alt=""`.
  */
 export default function SmartImage({
   src,
   alt = '',
   ratio = '16 / 10',
+  position = '50% 50%',
   width,
   height,
   sizes,
@@ -44,6 +47,7 @@ export default function SmartImage({
           width={width}
           height={height}
           sizes={sizes}
+          style={{ objectPosition: position }}
           loading={priority ? undefined : 'lazy'}
           decoding={priority ? 'sync' : 'async'}
           // Only the hero portrait gets fetch priority.

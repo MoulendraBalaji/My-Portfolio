@@ -52,11 +52,7 @@ function ProjectCard({ project, index, total, progress, stacked }) {
       const navHeight = parseFloat(
         getComputedStyle(document.documentElement).getPropertyValue('--nav-h')
       );
-      // `offsetTop` is relative to `.project-slot` (the nearest positioned
-      // ancestor) and already includes the cascading stack offset, so this is
-      // how far down the viewport the card's bottom edge actually sits.
-      const top = Number.isFinite(node.offsetTop) ? node.offsetTop : 0;
-      const available = window.innerHeight - (Number.isNaN(navHeight) ? 68 : navHeight) - top - 48;
+      const available = window.innerHeight - (Number.isNaN(navHeight) ? 68 : navHeight) - 48;
       setOverflows(node.scrollHeight > available);
     };
 

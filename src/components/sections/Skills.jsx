@@ -1,5 +1,4 @@
 import { m } from 'motion/react';
-import { useLayoutEffect, useRef, useState } from 'react';
 
 import SectionHeading from './SectionHeading.jsx';
 import Reveal from '../ui/Reveal.jsx';
@@ -12,69 +11,38 @@ import './Skills.css';
  * One seamless row.
  *
  * The track holds two identical halves and is shifted by exactly -50%, so the
- * loop has no seam. Each half repeats its group until it is wider than the
- * visible row — with only a handful of items a single copy is narrower than the
- * container, which leaves a dead gap at the end of the row. The edge mask hides
- * the join.
+ * loop has no seam and the edge mask hides the join.
+ *
+ * Both rows carry the *full* item list rather than splitting it. A half-length
+ * row is narrower than the container, which leaves a dead gap at the end of the
+ * loop; repeating the whole list always overflows the row. The second row runs
+ * the list backwards so the two rows counter-scroll.
+ *
+ * Deliberately no measuring, no ResizeObserver and no state: an earlier version
+ * recomputed a repeat count from a measured ratio, and the sub-pixel jitter in
+ * that ratio made the count oscillate between two values every frame, spinning
+ * the main thread. The list is long enough to fill the row on its own.
  *
  * The scroll is a CSS animation rather than Motion so it stays on the
  * compositor and so `animation-play-state` can genuinely pause it — restarting
  * a Motion keyframe loop to fake a pause makes the row jump.
  */
 function MarqueeRow({ items, reverse = false, durationSeconds }) {
-  const rowRef = useRef(null);
-  const probeRef = useRef(null);
-  const [copies, setCopies] = useState(1);
-
-  useLayoutEffect(() => {
-    const row = rowRef.current;
-    const probe = probeRef.current;
-    if (!row || !probe || typeof ResizeObserver === 'undefined') return undefined;
-
-    const measure = () => {
-      const available = row.clientWidth;
-      const groupWidth = probe.scrollWidth;
-      if (!available || !groupWidth) return;
-      // Repeat until one half covers the row, so -50% always loops off-screen.
-      setCopies(Math.max(1, Math.ceil(available / groupWidth)));
-    };
-
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(row);
-    ro.observe(probe);
-    return () => ro.disconnect();
-  }, [items]);
-
   return (
-    <div className={`marquee${reverse ? ' marquee--reverse' : ''}`} ref={rowRef}>
+    <div className={`marquee${reverse ? ' marquee--reverse' : ''}`}>
       <div
         className="marquee__track"
         style={{ '--marquee-duration': `${durationSeconds}s` }}
       >
         {[0, 1].map((half) => (
           <ul className="marquee__group" key={half} aria-hidden={half === 1}>
-            {Array.from({ length: copies }, (_, copy) =>
-              items.map((item) => (
-                <li className="marquee__item" key={`${half}-${copy}-${item}`}>
-                  {item}
-                </li>
-              ))
-            )}
+            {items.map((item) => (
+              <li className="marquee__item" key={`${half}-${item}`}>
+                {item}
+              </li>
+            ))}
           </ul>
         ))}
-      </div>
-
-      {/* Single copy measured off-screen, outside the animated track so it
-          cannot skew the -50% offset. */}
-      <div className="marquee__measure" aria-hidden="true">
-        <ul className="marquee__group" ref={probeRef}>
-          {items.map((item) => (
-            <li className="marquee__item" key={item}>
-              {item}
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   );
@@ -82,10 +50,6 @@ function MarqueeRow({ items, reverse = false, durationSeconds }) {
 
 export default function Skills() {
   const reduced = usePrefersReducedMotion();
-
-  const half = Math.ceil(marqueeItems.length / 2);
-  const rowA = marqueeItems.slice(0, half);
-  const rowB = marqueeItems.slice(half);
 
   return (
     <section id="skills" className="section section--elevated" aria-labelledby="skills-heading">
@@ -109,8 +73,8 @@ export default function Skills() {
           </Reveal>
         ) : (
           <div className="marquee-pair">
-            <MarqueeRow items={rowA} durationSeconds={38} />
-            <MarqueeRow items={rowB.length ? rowB : rowA} reverse durationSeconds={44} />
+            <MarqueeRow items={marqueeItems} durationSeconds={38} />
+            <MarqueeRow items={[...marqueeItems].reverse()} reverse durationSeconds={44} />
           </div>
         )}
 

@@ -102,8 +102,9 @@ export default function Hero({ preloaderDone }) {
             src={hero.portrait}
             alt="Portrait of Moulendra Balaji"
             ratio="4 / 5"
-            width={1200}
-            height={1500}
+            position="50% 8%"
+            width={720}
+            height={1280}
             sizes="(max-width: 900px) 70vw, 420px"
             priority
             fallbackText="MB"

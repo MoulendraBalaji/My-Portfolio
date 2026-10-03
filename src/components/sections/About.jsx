@@ -37,9 +37,10 @@ export default function About() {
               <SmartImage
                 src={about.portrait}
                 alt="Moulendra Balaji"
-                ratio="1 / 1"
-                width={1200}
-                height={1200}
+                ratio="4 / 5"
+                position="50% 8%"
+                width={720}
+                height={1280}
                 sizes="(max-width: 900px) 90vw, 380px"
                 fallbackText="MB"
               />

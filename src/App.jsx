@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import Cursor from './components/layout/Cursor.jsx';
 import Footer from './components/layout/Footer.jsx';
@@ -20,6 +20,12 @@ import { useAssetAvailable } from './hooks/useAssetAvailable.js';
 export default function App() {
   const [preloaderDone, setPreloaderDone] = useState(false);
   const resumeAvailable = useAssetAvailable(meta.resume);
+
+  // Stable identity: Preloader keeps `onDone` in a useCallback and re-arms its
+  // completion timer whenever that callback changes. An inline arrow would give
+  // it a new identity on every App render, so the timer would reset each time
+  // and `preloaderDone` could stay false — leaving the hero at opacity 0.
+  const handlePreloaderDone = useCallback(() => setPreloaderDone(true), []);
 
   return (
     <MotionRoot>
@@ -45,7 +51,7 @@ export default function App() {
 
       <Footer />
 
-      <Preloader onDone={() => setPreloaderDone(true)} />
+      <Preloader onDone={handlePreloaderDone} />
     </MotionRoot>
   );
 }
