@@ -2,15 +2,21 @@ import { m, useInView, useScroll, useTransform } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 
 import SectionHeading from './SectionHeading.jsx';
-import SmartImage from '../SmartImage/SmartImage.jsx';
 import Magnetic from '../ui/Magnetic.jsx';
-import Reveal from '../ui/Reveal.jsx';
 import { fadeUp, staggerContainer } from '../../lib/motion';
 import { usePrefersReducedMotion } from '../../hooks/useEnv.js';
 import { projects, sectionMeta } from '../../data/portfolio.js';
 import './Projects.css';
 
-const MAX_STACK = 6; // beyond this the rest collapse into the "More work" list
+/* One accent per card, cycled. Each drives that card's wave and keyline so no
+   two neighbours read the same. */
+const WAVE_ACCENTS = [
+  [200, 255, 61], // lime
+  [124, 108, 255], // violet
+  [90, 214, 220], // cyan
+  [255, 138, 92], // ember
+  [244, 114, 182] // rose
+];
 
 const pad2 = (value) => String(value).padStart(2, '0');
 
@@ -39,8 +45,6 @@ function ProjectCard({ project, index, total, progress, stacked }) {
     [dimFrom, dimFrom + span],
     isLast ? [0, 0] : [0, 0.55]
   );
-  // Cover art settles from 1.18 as the card arrives.
-  const imageScale = useTransform(progress, [start, end], [1.18, 1]);
 
   // If the card cannot fit the viewport, drop out of the stack entirely so no
   // content is ever cropped or stranded behind the next card.
@@ -66,7 +70,6 @@ function ProjectCard({ project, index, total, progress, stacked }) {
   const motionStyle = isStacked
     ? { scale: cardScale, transformOrigin: 'top center' }
     : undefined;
-  const imageStyle = isStacked ? { scale: imageScale } : undefined;
 
   const handlePointerMove = (event) => {
     const el = frameRef.current;
@@ -77,6 +80,13 @@ function ProjectCard({ project, index, total, progress, stacked }) {
   };
 
   const [primary, ...secondary] = project.links ?? [];
+  const rgb = WAVE_ACCENTS[index % WAVE_ACCENTS.length].join(', ');
+  // Desynchronise the waves so they never pulse in lockstep.
+  const waveStyle = {
+    '--wave-rgb': rgb,
+    '--wave-delay': `${-((index * 1.7) % 9).toFixed(2)}s`,
+    '--wave-speed': `${(9 + (index % 5) * 1.6).toFixed(1)}s`
+  };
 
   return (
     <div
@@ -86,13 +96,17 @@ function ProjectCard({ project, index, total, progress, stacked }) {
       <div className="project-slot__sticky">
         <m.article
           ref={frameRef}
-          className={`project project--tint-${index % 2 === 0 ? 'violet' : 'lime'}`}
-          style={motionStyle}
+          className="project"
+          style={{ ...motionStyle, ...waveStyle }}
           onPointerMove={handlePointerMove}
           aria-labelledby={`project-${project.slug}`}
         >
           <span className="project__spotlight" aria-hidden="true" />
           {isStacked ? <span className="project__dim" style={{ opacity: dim }} aria-hidden="true" /> : null}
+
+          {/* Text-only card: a slow colour wave behind the content. */}
+          <span className="project__wave" aria-hidden="true" />
+          <span className="project__wave project__wave--mid" aria-hidden="true" />
 
           <div className="project__inner">
             <m.div
@@ -105,7 +119,7 @@ function ProjectCard({ project, index, total, progress, stacked }) {
                 <span className="project__index">
                   {pad2(index + 1)} <span aria-hidden="true">/</span> {pad2(total)}
                 </span>
-                <span className="chip chip--violet">{project.category}</span>
+                <span className="chip">{project.category}</span>
                 {project.badge ? <span className="chip">{project.badge}</span> : null}
               </m.div>
 
@@ -113,21 +127,9 @@ function ProjectCard({ project, index, total, progress, stacked }) {
                 {project.title}
               </m.h3>
 
-              <m.p className="project__role" variants={fadeUp}>
-                {project.role}
-              </m.p>
-
               <m.p className="project__desc" variants={fadeUp}>
                 {project.description}
               </m.p>
-
-              <m.ul className="chip-row project__tech" variants={fadeUp}>
-                {project.tech.map((tech) => (
-                  <li key={tech} className="chip">
-                    {tech}
-                  </li>
-                ))}
-              </m.ul>
 
               {project.links?.length ? (
                 <m.div className="project__actions" variants={fadeUp}>
@@ -157,22 +159,6 @@ function ProjectCard({ project, index, total, progress, stacked }) {
                 </m.div>
               ) : null}
             </m.div>
-
-            <div className="project__visual">
-              <m.div className="project__image-frame" style={imageStyle}>
-                <div className="project__image-zoom">
-                  <SmartImage
-                    src={project.image}
-                    alt=""
-                    ratio="16 / 10"
-                    width={1600}
-                    height={1000}
-                    sizes="(max-width: 1024px) 92vw, 560px"
-                    fallbackText={project.title}
-                  />
-                </div>
-              </m.div>
-            </div>
           </div>
         </m.article>
       </div>
@@ -189,9 +175,6 @@ export default function Projects() {
     offset: ['start start', 'end end']
   });
 
-  const stacked = projects.slice(0, MAX_STACK);
-  const overflow = projects.slice(MAX_STACK);
-
   return (
     <section id="projects" className="section projects" aria-labelledby="projects-heading">
       <div className="shell">
@@ -204,35 +187,19 @@ export default function Projects() {
         />
       </div>
 
-      {/* Scroll container holds only the sticky slots, so the progress math
-          maps cleanly onto the stack. */}
+      {/* Every project is a card. The old "More work" overflow list is gone. */}
       <div className="projects__stack" ref={stackRef}>
-        {stacked.map((project, index) => (
+        {projects.map((project, index) => (
           <ProjectCard
             key={project.slug}
             project={project}
             index={index}
-            total={stacked.length}
+            total={projects.length}
             progress={scrollYProgress}
             stacked={!reduced}
           />
         ))}
       </div>
-
-      {overflow.length ? (
-        <Reveal className="shell projects__more" stagger>
-          <p className="eyebrow">More work</p>
-          <ul>
-            {overflow.map((project) => (
-              <li key={project.slug}>
-                <a href={project.links?.[0]?.href} target="_blank" rel="noopener noreferrer">
-                  {project.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-      ) : null}
 
       <div className="projects__spacer" aria-hidden="true" />
     </section>

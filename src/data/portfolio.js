@@ -552,7 +552,7 @@ export const education = [
   {
     degree: 'B.Tech in Computer Science (AI & ML Specialization)',
     school: 'CRRAO AIMSCS, Hyderabad',
-    period: '2023 – 2027',
+    period: '2024 – 2028',
     logo: '/images/logos/crrao-aimscs.svg'
   }
 ];

@@ -10,7 +10,7 @@ Already real — no action needed:
 
 | Asset | Source |
 |---|---|
-| `profile/portrait.webp`, `profile/portrait-alt.webp` | cropped from `profile/IMG-20250204-WA0042.jpg` (your original 720×1280 photo is kept in this folder) |
+| `profile/portrait.webp` | converted from `profile/IMG-20250204-WA0042.jpg` (your original 720×1280 photo is kept in this folder) |
 | `../Moulendra_Balaji_Resume.pdf` | your resume, so the Resume button is live |
 
 ## How to replace
@@ -24,41 +24,33 @@ Already real — no action needed:
 
 | Folder | Purpose |
 |---|---|
-| `profile/` | Hero portrait + About-section portrait |
+| `profile/` | Hero portrait |
 | `logos/` | Company / institution wordmarks |
 | `research/` | Paper preview figure, desktop + mobile crops |
-| `projects/` | One cover + one detail image per project card |
 | `brand/` | Social share card (used by OG / Twitter tags) |
+| `projects/` | **Not currently rendered** — project cards are text-only (see below) |
+
+> **Projects are text-only.** Each card shows the project name, description and
+> links over a colour wave; there is no cover image. The `projects/` files are
+> kept so they are there if art is ever added back, but nothing loads them and
+> the `image` / `cover` fields in `src/data/portfolio.js` are currently unused.
 
 ## Required sizes
 
 | Asset | Size | Notes |
 |---|---|---|
 | `brand/og-cover.png` | 1200 × 630 | Link previews. The most visible one. |
-| `profile/portrait.webp` | 1200 × 1500 | 4:5 portrait |
-| `profile/portrait-alt.webp` | 1200 × 1500 | Alternate crop for About |
-| `projects/*-cover.webp` | 1600 × 1000 | 16:10 card art |
-| `projects/*-detail-1.webp` | 1600 × 1000 | Second shot, revealed on hover |
+| `profile/portrait.webp` | 720 × 1280 | 9:16, the original frame (uncropped) |
 | `research/paper-preview.webp` | 1600 × 1000 | 16:10 |
 | `research/paper-preview-mobile.webp` | 900 × 1200 | 3:4 mobile crop |
 | `logos/*.svg` | ~240 × 80 | Wordmarks |
 
-## Project image filenames
+## Portrait framing
 
-One `<slug>` per project in `src/data/portfolio.js`:
-
-```
-conflict-free-collaborative-oltp   scrybe-io
-support-triage-environment         drishti-transit
-lunar-ice-engine                   gestureforge
-leaklens                           sprygen
-ai-stadium-companion               message-notification-router
-mediflow-ai-healthcare             indiaruns-ranking
-et-ai-voltiq                       carbonpulse
-student-performance-ml-analysis    chocolate-shipments-report
-```
-
-The featured research card reuses `research/paper-preview.webp`.
+`profile/portrait.webp` is the **uncropped** 720×1280 original. The hero renders
+it in a `4 / 5` box, so `object-fit: cover` trims the top and bottom; a focal
+point of `50% 8%` (`position` prop on `SmartImage`) keeps your head in frame.
+Lower that percentage if the crop still feels tight, raise it to show more sky.
 
 ## Also expected, outside this folder
 

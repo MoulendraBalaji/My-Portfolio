@@ -30,10 +30,13 @@
 }
 
 /* Cascading offset: each card sits a little lower so the edges of the cards
-   behind it peek out above as a visible deck. The step is capped in vh so the
-   last card in a six-card stack still clears the fold on short viewports. */
+   behind it peek out above as a visible deck. The step is capped in vh, and the
+   index is capped too — with every project in the stack the raw index would
+   push the last cards clean off the screen. */
 .project-slot.is-stacked .project-slot__sticky {
-  padding-top: calc(var(--nav-h) + 4vh + var(--slot-index) * clamp(10px, 2.2vh, 24px));
+  padding-top: calc(
+    var(--nav-h) + 4vh + min(var(--slot-index), 4) * clamp(10px, 2.2vh, 24px)
+  );
 }
 
 .project-slot.is-static .project-slot__sticky {
@@ -45,6 +48,7 @@
 .project {
   --mx: 50%;
   --my: 50%;
+  --wave-rgb: 200, 255, 61;
 
   position: relative;
   isolation: isolate;
@@ -63,13 +67,58 @@
   min-height: 0;
 }
 
-/* Per-card corner tint, alternating between the two accents. */
-.project--tint-violet {
-  background-image: radial-gradient(60% 50% at 100% 0%, rgba(124, 108, 255, 0.08), transparent 70%);
+/* Per-card colour wave. Two offset radial lobes drifting across the card on
+   their own clock, tinted by --wave-rgb, which Projects.jsx sets per card and
+   desynchronises so neighbours never pulse together. Kept on the compositor and
+   stopped under reduced motion. */
+.project__wave {
+  position: absolute;
+  inset: -30%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background: radial-gradient(
+    38% 44% at 22% 30%,
+    rgba(var(--wave-rgb), 0.26),
+    transparent 68%
+  );
+  animation: project-wave var(--wave-speed, 11s) ease-in-out infinite alternate;
+  animation-delay: var(--wave-delay, 0s);
 }
 
-.project--tint-lime {
-  background-image: radial-gradient(60% 50% at 100% 0%, rgba(200, 255, 61, 0.06), transparent 70%);
+.project__wave--mid {
+  opacity: 0.42;
+  background: radial-gradient(
+    42% 40% at 76% 68%,
+    rgba(var(--wave-rgb), 0.22),
+    transparent 70%
+  );
+  animation-duration: calc(var(--wave-speed, 11s) * 1.35);
+  animation-delay: calc(var(--wave-delay, 0s) * -1.6);
+}
+
+@keyframes project-wave {
+  from {
+    transform: translate3d(-5%, -3%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6%, 5%, 0) scale(1.16);
+  }
+}
+
+/* Accent keyline along the top edge, tinted to match the wave. */
+.project::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(var(--wave-rgb), 0.85),
+    rgba(var(--wave-rgb), 0.05)
+  );
+  pointer-events: none;
 }
 
 .project__spotlight {
@@ -103,7 +152,7 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 45% 55%;
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(1.5rem, 3vw, 2.5rem);
   height: 100%;
 }
@@ -137,98 +186,29 @@
 
 .project__title {
   position: relative;
-  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
-  line-height: 1.1;
-  display: inline;
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-repeat: no-repeat;
-  background-size: 0% 1px;
-  background-position: 0 100%;
-  transition: background-size 0.6s var(--ease-out);
-}
-
-.project:hover .project__title {
-  background-size: 100% 1px;
-}
-
-.project__role {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--accent-2);
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  line-height: 1.08;
+  color: rgb(var(--wave-rgb));
 }
 
 .project__desc {
   color: var(--text-muted);
-  font-size: 0.9375rem;
+  font-size: 1rem;
+  max-width: 62ch;
   /* Keep the card readable when it is the active one. */
   display: -webkit-box;
-  -webkit-line-clamp: 4;
-  line-clamp: 4;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-.project__tech {
-  margin-top: auto;
-  padding-top: 0.5rem;
 }
 
 .project__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  padding-top: 0.5rem;
-}
-
-/* ---------------------------------------------------------------- visual -- */
-
-.project__visual {
-  min-width: 0;
-}
-
-.project__image-frame {
-  height: 100%;
-  overflow: clip;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-}
-
-.project__image-zoom {
-  height: 100%;
-  transition: transform 0.8s var(--ease-out);
-}
-
-.project:hover .project__image-zoom {
-  transform: scale(1.04);
-}
-
-.project__image-zoom .smart-image {
-  height: 100%;
-}
-
-/* ------------------------------------------------------------- more list -- */
-
-.projects__more {
-  display: grid;
-  gap: 0.75rem;
-  padding-block: clamp(3rem, 6vw, 5rem) 0;
-}
-
-.projects__more ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
-}
-
-.projects__more a {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-  transition: color 0.4s var(--ease-out);
-}
-
-.projects__more a:hover {
-  color: var(--accent);
+  margin-top: auto;
+  padding-top: 0.75rem;
 }
 
 /* Lets the last card settle before the next section begins. */
@@ -239,23 +219,9 @@
 /* ------------------------------------------------------------- responsive -- */
 
 @media (max-width: 1023px) {
-  .project__inner {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-  }
-
   .project__desc {
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-  }
-
-  .project__visual {
-    order: -1;
-  }
-
-  .project__image-frame {
-    aspect-ratio: 16 / 10;
-    height: auto;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
   }
 }
 
@@ -274,12 +240,13 @@
     height: auto;
   }
 
-  .project__tech {
-    margin-top: 0.5rem;
+  .project__desc {
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
   }
 }
 
-/* Reduced motion: a plain vertical list, no sticky, scaling, dimming or
+/* Reduced motion: a plain vertical list, no sticky, scaling, dimming, waves or
    parallax. Content order and reachability are unchanged. */
 @media (prefers-reduced-motion: reduce) {
   .project-slot,
@@ -300,8 +267,8 @@
     transform: none !important;
   }
 
-  .project__image-frame {
-    transform: none !important;
+  .project__wave {
+    animation: none;
   }
 
   .project__dim {

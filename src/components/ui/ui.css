@@ -169,17 +169,17 @@
 .masked__word {
   display: inline-block;
   overflow: hidden;
-  /* An inline-block's height comes from the line box inside it, and that line
-     box inherits `line-height` from the headline (.hero__title runs at .92).
-     Tight leading makes the box SHORTER than the glyph ink, so `overflow:
-     hidden` shaves the ascenders off — the dot of an "i" and the top of
-     "b"/"l"/"h" disappear. Loosening the leading inside the mask makes the box
-     contain the full ink; the padding is slack on top of that and the equal
-     negative margin cancels the extra height back out so the headline's line
-     spacing is unchanged. */
-  line-height: 1.1;
-  padding-block: 0.3em;
-  margin-block: -0.3em;
+  /* The clip box is the LINE BOX inside this inline-block, not the glyphs, and
+     the headline's leading (.92) is far tighter than any font's content area —
+     ascent + descent. That is why padding alone never fixed it: the box stayed
+     shorter than the ink, so `overflow: hidden` kept shaving the top. The dot
+     of an "i" and the shoulders of b/l/h sit exactly at the ascender line and
+     went first. 1.5 is comfortably wider than the content area, so the box
+     cannot clip; the equal negative margin then cancels the extra height so the
+     headline's line spacing is unchanged. */
+  line-height: 1.5;
+  padding-block: 0;
+  margin-block: -0.29em;
   vertical-align: bottom;
 }
 
