@@ -1,0 +1,72 @@
+/* Fallback + blending layers for the WebGL slat backdrop. */
+
+.slats-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: clip;
+  opacity: 0.62;
+  isolation: isolate;
+}
+
+.slats-backdrop--contact {
+  opacity: 0.5;
+}
+
+/* Static background: shown while the shader chunk loads, and forever if WebGL2 is unavailable. */
+.slats-backdrop__fallback {
+  position: absolute;
+  inset: 0;
+  background-color: var(--bg);
+  background-image: var(--glow-1);
+}
+
+/* Canvas host. Sits above the fallback, below the overlay. */
+.slats-backdrop__shader {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slats-backdrop__shader[data-ready='true'] {
+  opacity: 1;
+}
+
+/* Fades the shader into the page so its top/bottom edges never show a seam. */
+.slats-backdrop__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(7, 8, 11, 0.15) 0%,
+    rgba(7, 8, 11, 0.55) 55%,
+    var(--bg) 100%
+  );
+}
+
+/* Soft radial darkening so headline text keeps WCAG AA contrast over bright slats. */
+.slats-backdrop__vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 55% at 22% 45%, rgba(7, 8, 11, 0.72), transparent 70%),
+    radial-gradient(50% 50% at 50% 0%, rgba(7, 8, 11, 0.4), transparent 70%);
+}
+
+@media (max-width: 767px) {
+  .slats-backdrop {
+    opacity: 0.5;
+  }
+
+  .slats-backdrop__vignette {
+    background: radial-gradient(70% 55% at 50% 40%, rgba(7, 8, 11, 0.78), transparent 72%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slats-backdrop__shader {
+    transition: none;
+  }
+}

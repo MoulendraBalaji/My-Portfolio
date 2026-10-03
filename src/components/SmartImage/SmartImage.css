@@ -1,0 +1,59 @@
+.smart-image {
+  position: relative;
+  overflow: clip;
+  width: 100%;
+  background-color: var(--surface);
+  border-radius: inherit;
+  isolation: isolate;
+}
+
+.smart-image__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Stand-in plate: layered radial glows + a hairline, so an empty slot still
+   looks designed rather than broken. */
+.smart-image__fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  text-align: center;
+  background-color: var(--surface);
+  background-image:
+    radial-gradient(70% 70% at 18% 12%, rgba(124, 108, 255, 0.16), transparent 70%),
+    radial-gradient(60% 60% at 88% 92%, rgba(200, 255, 61, 0.08), transparent 70%);
+}
+
+.smart-image__fallback::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--border);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.smart-image__initials {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+.smart-image__alt {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  max-width: 24ch;
+  line-height: 1.5;
+}
