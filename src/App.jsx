@@ -1,30 +1,37 @@
-import MotionRoot from './components/motion/MotionRoot.jsx';
-import { about, meta, research } from './data/portfolio.js';
+import { useState } from 'react';
 
-/**
- * Temporary shell — replaced section by section in Phases 2 and 3.
- * Its only job is to prove the foundation (tokens, fonts, MotionConfig) renders.
- */
+import Cursor from './components/layout/Cursor.jsx';
+import Footer from './components/layout/Footer.jsx';
+import Nav from './components/layout/Nav.jsx';
+import Preloader from './components/layout/Preloader.jsx';
+import ScrollProgress from './components/layout/ScrollProgress.jsx';
+import MotionRoot from './components/motion/MotionRoot.jsx';
+import { meta } from './data/portfolio.js';
+import { useAssetAvailable } from './hooks/useAssetAvailable.js';
+
 export default function App() {
+  const [preloaderDone, setPreloaderDone] = useState(false);
+  const resumeAvailable = useAssetAvailable(meta.resume);
+
   return (
     <MotionRoot>
+      <ScrollProgress />
+      <Cursor />
+
       <a className="skip-link" href="#main">
         Skip to content
       </a>
+
+      <Nav resumeAvailable={resumeAvailable} />
+
       <main id="main">
-        <section className="section" id="about" aria-labelledby="about-h">
-          <div className="shell">
-            <p className="eyebrow">01 — About</p>
-            <h1 className="display" id="about-h">
-              {meta.title.split(' — ')[0]} <em>{'design system online'}</em>
-            </h1>
-            <p className="lead">{about.lead}</p>
-            <p className="lead">
-              Research: {research.title} — <a href={research.url}>{research.url}</a>
-            </p>
-          </div>
-        </section>
+        {/* Sections are mounted in Phase 3. `preloaderDone` gates the hero shader. */}
+        <section className="section" id="hero" style={{ minHeight: '60vh' }} aria-label="Introduction" />
       </main>
+
+      <Footer />
+
+      <Preloader onDone={() => setPreloaderDone(true)} data-active={preloaderDone} />
     </MotionRoot>
   );
 }

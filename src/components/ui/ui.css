@@ -1,0 +1,187 @@
+/* ============================================================================
+   Shared UI primitives: buttons, chips, cards, magnetic wrapper, masked text.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- buttons -- */
+
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--text);
+  --btn-border: var(--border-strong);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  /* 44px minimum tap target */
+  min-height: 44px;
+  padding: 0.7rem 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: border-color 0.4s var(--ease-out), color 0.4s var(--ease-out), background-color 0.4s var(--ease-out);
+}
+
+.btn:hover {
+  border-color: var(--text-dim);
+}
+
+.btn--primary {
+  --btn-bg: var(--accent);
+  --btn-fg: var(--accent-ink);
+  --btn-border: var(--accent);
+  font-weight: 600;
+}
+
+.btn--primary:hover {
+  --btn-bg: #d4ff5c;
+  --btn-border: #d4ff5c;
+}
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--text-muted);
+}
+
+.btn--ghost:hover {
+  --btn-fg: var(--text);
+}
+
+.btn--sm {
+  min-height: 40px;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s var(--ease-out);
+}
+
+.link-arrow:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* --------------------------------------------------------------- magnetic -- */
+
+.magnetic {
+  display: inline-flex;
+}
+
+.magnetic__inner {
+  display: inline-flex;
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ chips -- */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.chip--accent {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.chip--violet {
+  color: var(--accent-2);
+  border-color: color-mix(in srgb, var(--accent-2) 40%, transparent);
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* ------------------------------------------------------------------ cards -- */
+
+.spotlight {
+  --mx: 50%;
+  --my: 50%;
+
+  position: relative;
+  isolation: isolate;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.4s var(--ease-out), background-color 0.4s var(--ease-out);
+}
+
+.spotlight:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-strong);
+}
+
+/* Cursor-following wash. --mx/--my are updated on pointermove. */
+.spotlight__glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    22rem circle at var(--mx) var(--my),
+    rgba(124, 108, 255, 0.14),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out);
+  pointer-events: none;
+}
+
+.spotlight:hover .spotlight__glow {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------ masked text -- */
+
+.masked {
+  display: block;
+}
+
+.masked__word {
+  display: inline-block;
+  overflow: hidden;
+  /* Room for descenders and the italic's overhang. */
+  padding-block: 0.06em;
+  margin-block: -0.06em;
+  vertical-align: bottom;
+}
+
+.masked__inner {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------- count-up -- */
+
+.count-up {
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,67 @@
+.cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  pointer-events: none;
+}
+
+.cursor__dot,
+.cursor__ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 999px;
+  /* Anchor the element's centre on the pointer coordinates. */
+  translate: -50% -50%;
+  opacity: 0;
+}
+
+.cursor__dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: var(--accent);
+  translate: -50% -50%;
+}
+
+.cursor__ring {
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  translate: -50% -50%;
+  transition: width 0.4s var(--ease-out), height 0.4s var(--ease-out),
+    margin 0.4s var(--ease-out), opacity 0.3s linear,
+    border-color 0.4s var(--ease-out), background-color 0.4s var(--ease-out);
+}
+
+.cursor__dot[data-visible='true'],
+.cursor__ring[data-visible='true'] {
+  opacity: 1;
+}
+
+/* Grows over anything clickable. */
+.cursor__ring[data-hot='true'] {
+  width: 52px;
+  height: 52px;
+  margin: -26px 0 0 -26px;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+/* Suppress the native pointer everywhere the custom one is active... */
+.has-custom-cursor body,
+.has-custom-cursor a,
+.has-custom-cursor button,
+.has-custom-cursor [role='button'],
+.has-custom-cursor summary {
+  cursor: none;
+}
+
+/* ...except where a real text or caret cursor is the correct affordance. */
+.has-custom-cursor input,
+.has-custom-cursor textarea,
+.has-custom-cursor select,
+.has-custom-cursor [contenteditable='true'] {
+  cursor: auto;
+}
