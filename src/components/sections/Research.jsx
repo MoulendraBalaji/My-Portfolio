@@ -52,12 +52,15 @@ export default function Research() {
           {research.stats.map((stat) => (
             <m.div className="research__stat" key={stat.label} variants={fadeUp}>
               <span className="research__stat-value">
-                <CountUp
-                  value={stat.value}
-                  decimals={stat.decimals ?? 0}
-                  prefix={stat.prefix ?? ''}
-                  suffix={stat.suffix ?? ''}
-                />
+                {/* `text` stats are fixed strings such as "0.62 vs 0.52" — nothing to count. */}
+                {stat.text ?? (
+                  <CountUp
+                    value={stat.value}
+                    decimals={stat.decimals ?? 0}
+                    prefix={stat.prefix ?? ''}
+                    suffix={stat.suffix ?? ''}
+                  />
+                )}
               </span>
               <span className="research__stat-label">{stat.label}</span>
               <span className="research__stat-hint">{stat.hint}</span>

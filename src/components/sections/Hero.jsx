@@ -33,7 +33,7 @@ export default function Hero({ preloaderDone }) {
           <m.p
             className="eyebrow hero__eyebrow"
             initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={preloaderDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
             transition={{ duration: 0.6, ease, delay: 0.1 }}
           >
             {hero.eyebrow}
@@ -43,15 +43,20 @@ export default function Hero({ preloaderDone }) {
             <span className="visually-hidden">
               {hero.name} {hero.nameAccent}
             </span>
-            <MaskedText as="span" className="hero__title-line" text={hero.name} />
-            <MaskedText as="span" className="hero__title-line" text={hero.nameAccent} />
+            <MaskedText as="span" className="hero__title-line" text={hero.name} play={preloaderDone} />
+            <MaskedText
+              as="span"
+              className="hero__title-line"
+              text={hero.nameAccent}
+              play={preloaderDone}
+            />
           </h1>
 
           <m.div
             className="hero__meta"
             variants={staggerContainer}
             initial="hidden"
-            animate="visible"
+            animate={preloaderDone ? 'visible' : 'hidden'}
           >
             <m.p className="hero__role" variants={fadeUp}>
               {hero.role}
@@ -64,10 +69,7 @@ export default function Hero({ preloaderDone }) {
               <m.p className="hero__chip" variants={fadeUp}>
                 <span className="chip chip--accent hero__status">
                   <Check size={13} strokeWidth={2.5} aria-hidden="true" />
-                  Completed · {flyrank.start} – {flyrank.end}
-                </span>
-                <span className="hero__status-company">
-                  ML Internship @ {flyrank.company}
+                  Completed {flyrank.role} @ {flyrank.company} · {flyrank.end}
                 </span>
               </m.p>
             ) : null}
@@ -93,7 +95,7 @@ export default function Hero({ preloaderDone }) {
           className="hero__portrait"
           style={{ y: portraitY, scale: portraitScale }}
           initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
+          animate={preloaderDone ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.94 }}
           transition={{ duration: 0.9, ease, delay: 0.25 }}
         >
           <SmartImage
@@ -114,7 +116,7 @@ export default function Hero({ preloaderDone }) {
         className="hero__scroll"
         href="#about"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={preloaderDone ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.6, delay: 0.9 }}
         whileInView="visible"
         viewport={viewport}

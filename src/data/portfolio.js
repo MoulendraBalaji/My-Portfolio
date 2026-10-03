@@ -129,6 +129,7 @@ export const research = {
   previewMobile: '/images/research/paper-preview-mobile.webp',
   stats: [
     { value: 0.66, decimals: 2, label: 'AUC-ROC', hint: 'LightGBM' },
+    { text: '0.62 vs 0.52', label: 'Precision@50', hint: 'LightGBM vs baseline' },
     { value: 79, prefix: '~', suffix: 'M', label: 'rows analysed', hint: 'daily, pseudonymized' },
     { value: 17, suffix: 'mo', label: 'of data', hint: 'time span' },
     { value: 14, label: 'engineered features', hint: 'incl. HHI' }

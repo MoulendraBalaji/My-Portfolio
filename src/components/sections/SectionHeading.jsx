@@ -16,7 +16,9 @@ export default function SectionHeading({ id, index, label, title, accent, childr
         {label}
       </m.p>
 
-      <h2 className="display section-heading__title">
+      {/* The id belongs on the heading itself — sections point aria-labelledby
+          here, and an empty node would give them an empty accessible name. */}
+      <h2 id={id} className="display section-heading__title">
         <MaskedText text={title} />
         {accent ? (
           <>
@@ -33,8 +35,6 @@ export default function SectionHeading({ id, index, label, title, accent, childr
           {children}
         </m.div>
       ) : null}
-
-      <span className="visually-hidden" id={id} />
     </Reveal>
   );
 }

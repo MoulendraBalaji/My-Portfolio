@@ -1,5 +1,4 @@
 import { m } from 'motion/react';
-import { useState } from 'react';
 
 import SectionHeading from './SectionHeading.jsx';
 import Reveal from '../ui/Reveal.jsx';
@@ -8,28 +7,20 @@ import { fadeUp } from '../../lib/motion';
 import { marqueeItems, sectionMeta, skills } from '../../data/portfolio.js';
 import './Skills.css';
 
-/** One seamless row. Duplicated track + edge fade make the loop invisible. */
+/**
+ * One seamless row: the track is duplicated and shifted by exactly -50%, so
+ * the loop has no seam, and the edge mask hides the join.
+ *
+ * The scroll is a CSS animation rather than Motion so it stays on the
+ * compositor and so `animation-play-state` can genuinely pause it — restarting
+ * a Motion keyframe loop to fake a pause makes the row jump.
+ */
 function MarqueeRow({ items, reverse = false, durationSeconds }) {
-  const [paused, setPaused] = useState(false);
-
   return (
-    <div
-      className="marquee"
-      onPointerEnter={() => setPaused(true)}
-      onPointerLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={() => setPaused(false)}
-    >
-      <m.div
+    <div className={`marquee${reverse ? ' marquee--reverse' : ''}`}>
+      <div
         className="marquee__track"
-        animate={{ x: reverse ? ['-50%', '0%'] : ['0%', '-50%'] }}
-        transition={{
-          duration: durationSeconds,
-          ease: 'linear',
-          repeat: Infinity,
-          // Pausing mid-flight keeps the seam hidden.
-          ...(paused ? { duration: 0 } : {})
-        }}
+        style={{ '--marquee-duration': `${durationSeconds}s` }}
       >
         {[0, 1].map((copy) => (
           <ul className="marquee__group" key={copy} aria-hidden={copy === 1}>
@@ -40,7 +31,7 @@ function MarqueeRow({ items, reverse = false, durationSeconds }) {
             ))}
           </ul>
         ))}
-      </m.div>
+      </div>
     </div>
   );
 }

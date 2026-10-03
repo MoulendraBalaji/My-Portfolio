@@ -21,12 +21,24 @@ function ProjectCard({ project, index, total, progress, stacked }) {
 
   const start = total > 0 ? index / total : 0;
   const end = total > 0 ? (index + 1) / total : 1;
+  const span = total > 0 ? 1 / total : 1;
+  const isLast = index >= total - 1;
 
   // Later cards scale down slightly, so earlier ones read as a receding deck.
   const targetScale = 1 - (total - index) * 0.045;
   const cardScale = useTransform(progress, [start, 1], [1, targetScale]);
   // Dimming is an overlay opacity, never a CSS filter.
-  const dim = useTransform(progress, [start, end], [0, 0.55]);
+  //
+  // A card is covered by the *next* one, so it must dim over the following
+  // window — [end, end + span] — not over its own. The final card is never
+  // covered, so its output is pinned to 0 (the input range stays valid to
+  // avoid a degenerate mapping).
+  const dimFrom = isLast ? 1 - span : end;
+  const dim = useTransform(
+    progress,
+    [dimFrom, dimFrom + span],
+    isLast ? [0, 0] : [0, 0.55]
+  );
   // Cover art settles from 1.18 as the card arrives.
   const imageScale = useTransform(progress, [start, end], [1.18, 1]);
 

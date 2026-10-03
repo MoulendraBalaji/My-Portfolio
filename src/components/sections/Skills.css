@@ -17,6 +17,27 @@
   display: flex;
   width: max-content;
   will-change: transform;
+  /* Two identical groups, so -50% lands exactly on the seam. */
+  animation: marquee-scroll var(--marquee-duration, 40s) linear infinite;
+}
+
+.marquee--reverse .marquee__track {
+  animation-direction: reverse;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Hover and keyboard focus both stop the row, mid-flight. */
+.marquee:hover .marquee__track,
+.marquee:focus-within .marquee__track {
+  animation-play-state: paused;
 }
 
 .marquee__group {
@@ -51,6 +72,14 @@
   margin-bottom: clamp(3rem, 6vw, 4.5rem);
   mask-image: none;
   border-block: 1px solid var(--border);
+}
+
+/* Belt and braces: Skills renders the static list in JS under reduced motion,
+   but the loop must not run even if that branch is bypassed. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
 }
 
 .marquee--static .marquee__item::before {

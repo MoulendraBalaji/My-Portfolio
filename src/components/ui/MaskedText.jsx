@@ -9,8 +9,11 @@ import { maskReveal, staggerWords, viewport } from '../../lib/motion';
  * own mask line. The full string is exposed once to assistive tech as plain
  * text, and the animated per-word spans are hidden from it — so the headline
  * is announced as one sentence rather than a column of fragments.
+ *
+ * `play={false}` holds the headline hidden with no trigger attached. The hero
+ * uses it to keep the title back until the preloader curtain has lifted.
  */
-export default function MaskedText({ text, as = 'span', className = '' }) {
+export default function MaskedText({ text, as = 'span', className = '', play = true }) {
   const Tag = m[as] ?? m.span;
   const words = text.split(' ');
 
@@ -19,8 +22,7 @@ export default function MaskedText({ text, as = 'span', className = '' }) {
       className={`masked ${className}`.trim()}
       variants={staggerWords}
       initial="hidden"
-      whileInView="visible"
-      viewport={viewport}
+      {...(play ? { whileInView: 'visible', viewport } : {})}
     >
       <span className="visually-hidden">{text}</span>
       {words.map((word, index) => (

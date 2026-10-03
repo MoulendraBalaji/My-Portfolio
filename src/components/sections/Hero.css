@@ -73,12 +73,6 @@
   letter-spacing: 0.02em;
 }
 
-.hero__status-company {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-dim);
-}
-
 .hero__actions {
   display: flex;
   flex-wrap: wrap;

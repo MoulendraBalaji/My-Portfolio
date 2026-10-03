@@ -1,5 +1,5 @@
 import { m, useMotionValue, useSpring } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useFinePointer, usePrefersReducedMotion } from '../../hooks/useEnv';
 import './Cursor.css';
@@ -22,6 +22,10 @@ export default function Cursor() {
 
   const [visible, setVisible] = useState(false);
   const [hot, setHot] = useState(false);
+  // Mirrors `visible` without re-running the effect — otherwise the first
+  // pointermove would tear down and re-add the listeners and the
+  // `has-custom-cursor` class, flickering the native cursor.
+  const shownRef = useRef(false);
 
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
@@ -36,10 +40,16 @@ export default function Cursor() {
 
     document.documentElement.classList.add('has-custom-cursor');
 
+    function reveal() {
+      if (shownRef.current) return;
+      shownRef.current = true;
+      setVisible(true);
+    }
+
     function handleMove(event) {
       x.set(event.clientX);
       y.set(event.clientY);
-      if (!visible) setVisible(true);
+      reveal();
 
       const target = event.target instanceof Element ? event.target : null;
       if (!target) return;
@@ -51,23 +61,21 @@ export default function Cursor() {
     }
 
     function handleLeave() {
+      shownRef.current = false;
       setVisible(false);
-    }
-    function handleEnter() {
-      setVisible(true);
     }
 
     window.addEventListener('pointermove', handleMove, { passive: true });
     document.addEventListener('pointerleave', handleLeave);
-    document.addEventListener('pointerenter', handleEnter);
+    document.addEventListener('pointerenter', reveal);
 
     return () => {
       document.documentElement.classList.remove('has-custom-cursor');
       window.removeEventListener('pointermove', handleMove);
       document.removeEventListener('pointerleave', handleLeave);
-      document.removeEventListener('pointerenter', handleEnter);
+      document.removeEventListener('pointerenter', reveal);
     };
-  }, [enabled, visible, x, y]);
+  }, [enabled, x, y]);
 
   if (!enabled) return null;
 
