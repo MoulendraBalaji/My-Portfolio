@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" width="240" height="80" role="img" aria-label="CRRAO AIMSCS">
+  <rect width="240" height="80" fill="none"/>
+  <g fill="none" stroke="#7c6cff" stroke-width="3">
+    <circle cx="26" cy="40" r="13"/>
+    <path d="M26 27 V53 M13 40 H39"/>
+  </g>
+  <text x="52" y="35" font-family="Georgia, 'Times New Roman', serif" font-size="19" fill="#f2f0ea">CRRAO</text>
+  <text x="52" y="56" font-family="Consolas, monospace" font-size="12" fill="#9aa0aa">AIMSCS</text>
+</svg>

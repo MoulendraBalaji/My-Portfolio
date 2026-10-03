@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" width="240" height="80" role="img" aria-label="FlyRank">
+  <rect width="240" height="80" fill="none"/>
+  <g fill="none" stroke="#c8ff3d" stroke-width="3" stroke-linecap="round">
+    <path d="M14 46 L26 26 L38 46"/>
+    <path d="M19 38 H33"/>
+  </g>
+  <text x="52" y="52" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#f2f0ea">Fly<tspan fill="#c8ff3d">Rank</tspan></text>
+</svg>

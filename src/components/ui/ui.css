@@ -169,9 +169,12 @@
 .masked__word {
   display: inline-block;
   overflow: hidden;
-  /* Room for descenders and the italic's overhang. */
-  padding-block: 0.06em;
-  margin-block: -0.06em;
+  /* The mask must be taller than the line box, or `overflow: hidden` shaves the
+     ascenders off — the dot of an "i" and the top of "b"/"l" disappear on tight
+     display leading (.hero__title runs at line-height .92). The equal negative
+     margin cancels the extra height back out so line spacing is unchanged. */
+  padding-block: 0.18em;
+  margin-block: -0.18em;
   vertical-align: bottom;
 }
 

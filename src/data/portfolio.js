@@ -240,6 +240,274 @@ export const projects = [
     cover: '/images/projects/support-triage-environment-detail-1.webp',
     kind: 'project',
     links: [{ label: 'Code', href: 'https://github.com/MoulendraBalaji/support_triage' }]
+  },
+
+  /* -------------------------------------------------------------------------- *
+   * Below: repositories from github.com/MoulendraBalaji. Descriptions are taken
+   * from each repository's own GitHub summary so nothing here is invented.
+   * Order matters — the first MAX_STACK entries become the sticky stack.
+   * -------------------------------------------------------------------------- */
+
+  {
+    slug: 'drishti-transit',
+    title: 'Drishti-Transit',
+    category: 'Edge AI / Flutter',
+    role: 'Creator',
+    badge: 'Live demo',
+    description:
+      'On-device edge-AI that turns a city bus fleet into a live urban sensing grid — potholes, road fractures, faded signs, congestion, pedestrian risk and plate capture — streamed to a real-time command centre with corridor analytics and incident triage.',
+    highlights: [
+      'Runs perception on-device from the vehicle fleet rather than in the cloud',
+      'Covers road-surface, signage, congestion and pedestrian-risk signals',
+      'Command centre with corridor analytics and incident triage',
+      'APK published automatically through GitHub Actions'
+    ],
+    tech: ['Flutter', 'Dart', 'OpenStreetMap', 'Python', 'Edge AI', 'Computer Vision'],
+    image: '/images/projects/drishti-transit-cover.webp',
+    cover: '/images/projects/drishti-transit-detail-1.webp',
+    kind: 'project',
+    links: [
+      { label: 'Live demo', href: 'https://moulendrabalaji.github.io/drishti-transit/', primary: true },
+      { label: 'Code', href: 'https://github.com/MoulendraBalaji/drishti-transit' }
+    ]
+  },
+  {
+    slug: 'lunar-ice-engine',
+    title: 'Lunar Ice Engine',
+    category: 'Space / Geospatial ML',
+    role: 'Creator',
+    description:
+      'Subsurface water-ice detection and 3D solar-aware rover navigation engine for Moon South Polar exploration (Faustini PSR), using ISRO Chandrayaan-2 DFSAR and OHRC data with LOLA DEM, served through FastAPI and a Three.js console.',
+    highlights: [
+      'Subsurface ice detection over the Faustini permanently shadowed region',
+      'Solar-aware rover navigation modelling for South Polar terrain',
+      'Built on ISRO Chandrayaan-2 DFSAR, OHRC and LOLA DEM datasets',
+      'FastAPI backend with an interactive 3D React / Three.js console'
+    ],
+    tech: ['Python', 'FastAPI', 'Three.js', 'React', 'ISRO Data', 'LOLA DEM', '3D Visualization'],
+    image: '/images/projects/lunar-ice-engine-cover.webp',
+    cover: '/images/projects/lunar-ice-engine-detail-1.webp',
+    kind: 'project',
+    links: [{ label: 'Code', href: 'https://github.com/MoulendraBalaji/lunar-ice-engine' }]
+  },
+  {
+    slug: 'gestureforge',
+    title: 'GestureForge',
+    category: 'Computer Vision',
+    role: 'Creator',
+    badge: '1 star',
+    description:
+      'Real-time, gesture-controlled 3D scene editor driven entirely from a webcam with no browser required. Combines MediaPipe and OpenCV with a software 3D renderer, rule-based and ML gestures, physics, air-draw, .obj export, macros, voice and analytics.',
+    highlights: [
+      'Full scene editing driven from webcam gestures alone — no browser needed',
+      'Software 3D renderer with optional OpenGL acceleration',
+      'Rule-based and ML gesture recognition plus air-draw',
+      'Physics, macros, voice control and .obj export'
+    ],
+    tech: ['Python', 'MediaPipe', 'OpenCV', 'Computer Vision', '3D Rendering'],
+    image: '/images/projects/gestureforge-cover.webp',
+    cover: '/images/projects/gestureforge-detail-1.webp',
+    kind: 'project',
+    links: [{ label: 'Code', href: 'https://github.com/MoulendraBalaji/gestureforge' }]
+  },
+  {
+    slug: 'leaklens',
+    title: 'LeakLens',
+    category: 'Security / Flutter',
+    role: 'Creator',
+    description:
+      'Fully air-gapped, on-device credential leak detector and OCR security scanner built with Flutter. Audits API keys, tokens and secrets in real time using Shannon entropy and Google ML Kit, with zero cloud exposure.',
+    highlights: [
+      '100% air-gapped — no credential ever leaves the device',
+      'Shannon entropy scoring to separate real secrets from ordinary strings',
+      'Google ML Kit OCR to scan screenshots and captured text',
+      'Real-time auditing of API keys, tokens and secrets'
+    ],
+    tech: ['Flutter', 'Dart', 'ML Kit', 'OCR', 'Shannon Entropy', 'Security'],
+    image: '/images/projects/leaklens-cover.webp',
+    cover: '/images/projects/leaklens-detail-1.webp',
+    kind: 'project',
+    links: [{ label: 'Code', href: 'https://github.com/MoulendraBalaji/LeakLens' }]
+  },
+  {
+    slug: 'sprygen',
+    title: 'SpryGen',
+    category: 'AI Assistant',
+    role: 'Creator',
+    description:
+      'Voice-locked, invisible AI desktop assistant built with Electron, React 18 and TypeScript. Biometric voice unlock, local-first storage, hybrid Groq / Gemini / Ollama routing, Selenium and PyAutoGUI automation, ElevenLabs voice, and mobile companion sync.',
+    highlights: [
+      'Biometric voice lock around the whole application',
+      'Hybrid LLM routing across Groq, Gemini and local Ollama',
+      'Selenium and PyAutoGUI desktop automation',
+      'Local-first storage with ElevenLabs voice and mobile companion sync'
+    ],
+    tech: ['Electron', 'React', 'TypeScript', 'Groq', 'Gemini', 'Ollama', 'ElevenLabs', 'Selenium'],
+    image: '/images/projects/sprygen-cover.webp',
+    cover: '/images/projects/sprygen-detail-1.webp',
+    kind: 'project',
+    links: [{ label: 'Code', href: 'https://github.com/MoulendraBalaji/SpryGen' }]
+  },
+  {
+    slug: 'ai-stadium-companion',
+    title: 'AI Stadium Companion',
+    category: 'GenAI',
+    role: 'Creator',
+    badge: 'Live demo',
+    description:
+      'GenAI stadium companion assistant for navigation, crowd density management, multilingual support and accessible pathfinding, built for the FIFA World Cup 2026.',
+    highlights: [
+      'GenAI assistant for in-stadium navigation',
+      'Crowd density management',
+      'Multilingual support across match languages',
+      'Accessible pathfinding'
+    ],
+    tech: ['TypeScript', 'GenAI', 'Multilingual', 'Accessibility'],
+    image: '/images/projects/ai-stadium-companion-cover.webp',
+    cover: '/images/projects/ai-stadium-companion-detail-1.webp',
+    kind: 'project',
+    links: [
+      { label: 'Live demo', href: 'https://ai-stadium-companion-sigma.vercel.app', primary: true },
+      { label: 'Code', href: 'https://github.com/MoulendraBalaji/ai-stadium-companion' }
+    ]
+  },
+  {
+    slug: 'message-notification-router',
+    title: 'Message Notification Router',
+    category: 'AI Agents',
+    role: 'HackerRank Orchestrate submission',
+    description:
+      'AI-powered message notification router with multi-agent orchestration across security/scam, urgency, spam, digest and multimodal media classification. Retrieves evidence with hybrid semantic plus Jaccard RAG, verifies with an optional LLM, and routes deterministically to notify, digest or mute.',
+    highlights: [
+      'Multi-agent orchestration across scam, urgency, spam and digest decisions',
+      'Hybrid semantic + Jaccard RAG evidence retrieval',
+      'Optional LLM verifier over deterministic classification',
+      'Deterministic notify / digest / mute action routing'
+    ],
+    tech: ['Python', 'Multi-Agent', 'RAG', 'Semantic Search', 'LLM'],
+    image: '/images/projects/message-notification-router-cover.webp',
+    cover: '/images/projects/message-notification-router-detail-1.webp',
+    kind: 'project',
+    links: [{ label: 'Code', href: 'https://github.com/MoulendraBalaji/message-notification-router' }]
+  },
+  {
+    slug: 'mediflow-ai-healthcare',
+    title: 'MediFlow AI',
+    category: 'AI Agents / Healthcare',
+    role: 'Creator',
+    description:
+      'AI-powered healthcare navigation and patient care coordination platform with intelligent agents for medical record management, care navigation and health insights.',
+    highlights: [
+      'Agents for medical record management and care navigation',
+      'Patient care coordination across the journey',
+      'Health insight generation'
+    ],
+    tech: ['TypeScript', 'AI Agents', 'Healthcare', 'Care Coordination'],
+    image: '/images/projects/mediflow-ai-healthcare-cover.webp',
+    cover: '/images/projects/mediflow-ai-healthcare-detail-1.webp',
+    kind: 'project',
+    links: [{ label: 'Code', href: 'https://github.com/MoulendraBalaji/mediflow-ai-healthcare' }]
+  },
+  {
+    slug: 'indiaruns-ranking',
+    title: 'IndiaRuns Candidate Ranking',
+    category: 'Applied ML',
+    role: 'Creator',
+    description:
+      'Intelligent candidate discovery and ranking engine for talent acquisition, using automated matching algorithms and data-driven profiling to streamline candidate shortlisting.',
+    highlights: [
+      'Automated candidate matching algorithms',
+      'Data-driven profiling of candidate records',
+      'Ranking pipeline for shortlisting'
+    ],
+    tech: ['JavaScript', 'Matching Algorithms', 'Ranking', 'Data Profiling'],
+    image: '/images/projects/indiaruns-ranking-cover.webp',
+    cover: '/images/projects/indiaruns-ranking-detail-1.webp',
+    kind: 'project',
+    links: [
+      {
+        label: 'Code',
+        href: 'https://github.com/MoulendraBalaji/IndiaRuns-Intelligent-Candidate-Discovery-Ranking-System'
+      }
+    ]
+  },
+  {
+    slug: 'et-ai-voltiq',
+    title: 'VoltIQ',
+    category: 'AI / Sustainability',
+    role: 'Creator',
+    description:
+      'AI-powered fleet decarbonization and electrification platform that helps operators plan the shift of vehicle fleets towards lower-emission powertrains.',
+    highlights: [
+      'Fleet decarbonization planning',
+      'Electrification decision support',
+      'AI-driven analysis over fleet data'
+    ],
+    tech: ['TypeScript', 'AI', 'Fleet Electrification', 'Decarbonization'],
+    image: '/images/projects/et-ai-voltiq-cover.webp',
+    cover: '/images/projects/et-ai-voltiq-detail-1.webp',
+    kind: 'project',
+    links: [{ label: 'Code', href: 'https://github.com/MoulendraBalaji/ET_AI_VOLTIQ' }]
+  },
+  {
+    slug: 'carbonpulse',
+    title: 'CarbonPulse',
+    category: 'Web / Sustainability',
+    role: 'Creator',
+    badge: 'Live demo',
+    description:
+      'Interactive carbon footprint calculator, tracker and scenario simulator built with React and styled in Apple HIG style, backed by a Node.js Express server.',
+    highlights: [
+      'Carbon footprint calculator and ongoing tracker',
+      'Scenario simulator for comparing emissions outcomes',
+      'React front end styled to Apple HIG conventions',
+      'Node.js Express backend'
+    ],
+    tech: ['React', 'Node.js', 'Express', 'Carbon Analytics'],
+    image: '/images/projects/carbonpulse-cover.webp',
+    cover: '/images/projects/carbonpulse-detail-1.webp',
+    kind: 'project',
+    links: [
+      { label: 'Live demo', href: 'https://carbonpulse.vercel.app', primary: true },
+      { label: 'Code', href: 'https://github.com/MoulendraBalaji/carbonpulse' }
+    ]
+  },
+  {
+    slug: 'student-performance-ml-analysis',
+    title: 'Student Performance ML Analysis',
+    category: 'Data Science',
+    role: 'Creator',
+    description:
+      'Machine learning and statistics project that predicts student exam scores and tests which factors significantly influence performance, reaching R² = 0.74 with gradient boosting alongside t-tests, ANOVA and regression diagnostics.',
+    highlights: [
+      'Exam score prediction at R² = 0.74 using gradient boosting',
+      'Significance testing with t-tests and ANOVA',
+      'Regression diagnostics on the fitted models'
+    ],
+    tech: ['Python', 'Jupyter', 'Gradient Boosting', 'Statistics', 'Regression'],
+    image: '/images/projects/student-performance-ml-analysis-cover.webp',
+    cover: '/images/projects/student-performance-ml-analysis-detail-1.webp',
+    kind: 'project',
+    links: [{ label: 'Code', href: 'https://github.com/MoulendraBalaji/student-performance-ml-analysis' }]
+  },
+  {
+    slug: 'chocolate-shipments-report',
+    title: 'Chocolate Shipments Report',
+    category: 'Data Analytics',
+    role: 'Creator',
+    description:
+      'Power BI report tracking global chocolate logistics with KPI cards for revenue and volume, map visuals for transit routes and trend charts for seasonal demand. DAX measures On-Time Delivery % and Average Lead Times, with interactive slicers for product type and shipping status.',
+    highlights: [
+      'KPI cards for revenue and volume',
+      'Map visuals for global transit routes',
+      'DAX measures for On-Time Delivery % and Average Lead Times',
+      'Slicers filtering by product type (Dark / Milk) and shipping status'
+    ],
+    tech: ['Power BI', 'DAX', 'Logistics Analytics', 'KPI Reporting'],
+    image: '/images/projects/chocolate-shipments-report-cover.webp',
+    cover: '/images/projects/chocolate-shipments-report-detail-1.webp',
+    kind: 'project',
+    links: [{ label: 'Code', href: 'https://github.com/MoulendraBalaji/Chocolate_Shipments_report' }]
   }
 ];
 

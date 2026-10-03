@@ -1,4 +1,5 @@
 import { m } from 'motion/react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 import SectionHeading from './SectionHeading.jsx';
 import Reveal from '../ui/Reveal.jsx';
@@ -8,29 +9,72 @@ import { marqueeItems, sectionMeta, skills } from '../../data/portfolio.js';
 import './Skills.css';
 
 /**
- * One seamless row: the track is duplicated and shifted by exactly -50%, so
- * the loop has no seam, and the edge mask hides the join.
+ * One seamless row.
+ *
+ * The track holds two identical halves and is shifted by exactly -50%, so the
+ * loop has no seam. Each half repeats its group until it is wider than the
+ * visible row — with only a handful of items a single copy is narrower than the
+ * container, which leaves a dead gap at the end of the row. The edge mask hides
+ * the join.
  *
  * The scroll is a CSS animation rather than Motion so it stays on the
  * compositor and so `animation-play-state` can genuinely pause it — restarting
  * a Motion keyframe loop to fake a pause makes the row jump.
  */
 function MarqueeRow({ items, reverse = false, durationSeconds }) {
+  const rowRef = useRef(null);
+  const probeRef = useRef(null);
+  const [copies, setCopies] = useState(1);
+
+  useLayoutEffect(() => {
+    const row = rowRef.current;
+    const probe = probeRef.current;
+    if (!row || !probe || typeof ResizeObserver === 'undefined') return undefined;
+
+    const measure = () => {
+      const available = row.clientWidth;
+      const groupWidth = probe.scrollWidth;
+      if (!available || !groupWidth) return;
+      // Repeat until one half covers the row, so -50% always loops off-screen.
+      setCopies(Math.max(1, Math.ceil(available / groupWidth)));
+    };
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(row);
+    ro.observe(probe);
+    return () => ro.disconnect();
+  }, [items]);
+
   return (
-    <div className={`marquee${reverse ? ' marquee--reverse' : ''}`}>
+    <div className={`marquee${reverse ? ' marquee--reverse' : ''}`} ref={rowRef}>
       <div
         className="marquee__track"
         style={{ '--marquee-duration': `${durationSeconds}s` }}
       >
-        {[0, 1].map((copy) => (
-          <ul className="marquee__group" key={copy} aria-hidden={copy === 1}>
-            {items.map((item) => (
-              <li className="marquee__item" key={`${copy}-${item}`}>
-                {item}
-              </li>
-            ))}
+        {[0, 1].map((half) => (
+          <ul className="marquee__group" key={half} aria-hidden={half === 1}>
+            {Array.from({ length: copies }, (_, copy) =>
+              items.map((item) => (
+                <li className="marquee__item" key={`${half}-${copy}-${item}`}>
+                  {item}
+                </li>
+              ))
+            )}
           </ul>
         ))}
+      </div>
+
+      {/* Single copy measured off-screen, outside the animated track so it
+          cannot skew the -50% offset. */}
+      <div className="marquee__measure" aria-hidden="true">
+        <ul className="marquee__group" ref={probeRef}>
+          {items.map((item) => (
+            <li className="marquee__item" key={item}>
+              {item}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
