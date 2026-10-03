@@ -1,7 +1,6 @@
 import { m } from 'motion/react';
 
 import SectionHeading from './SectionHeading.jsx';
-import SmartImage from '../SmartImage/SmartImage.jsx';
 import CountUp from '../ui/CountUp.jsx';
 import Reveal from '../ui/Reveal.jsx';
 import SpotlightCard from '../ui/SpotlightCard.jsx';
@@ -33,19 +32,8 @@ export default function About() {
           </Reveal>
 
           <Reveal className="about__aside" stagger>
-            <m.div variants={fadeUp}>
-              <SmartImage
-                src={about.portrait}
-                alt="Moulendra Balaji"
-                ratio="4 / 5"
-                position="50% 8%"
-                width={720}
-                height={1280}
-                sizes="(max-width: 900px) 90vw, 380px"
-                fallbackText="MB"
-              />
-            </m.div>
-
+            {/* No portrait here: the hero already leads with it, and showing the
+                same photo twice read as a mistake. The stats carry this column. */}
             <ul className="about__stats">
               {about.stats.map((stat) => (
                 <li key={stat.label}>
