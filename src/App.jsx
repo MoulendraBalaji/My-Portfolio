@@ -6,6 +6,14 @@ import Nav from './components/layout/Nav.jsx';
 import Preloader from './components/layout/Preloader.jsx';
 import ScrollProgress from './components/layout/ScrollProgress.jsx';
 import MotionRoot from './components/motion/MotionRoot.jsx';
+import About from './components/sections/About.jsx';
+import Contact from './components/sections/Contact.jsx';
+import Education from './components/sections/Education.jsx';
+import Experience from './components/sections/Experience.jsx';
+import Hero from './components/sections/Hero.jsx';
+import Projects from './components/sections/Projects.jsx';
+import Research from './components/sections/Research.jsx';
+import Skills from './components/sections/Skills.jsx';
 import { meta } from './data/portfolio.js';
 import { useAssetAvailable } from './hooks/useAssetAvailable.js';
 
@@ -25,13 +33,19 @@ export default function App() {
       <Nav resumeAvailable={resumeAvailable} />
 
       <main id="main">
-        {/* Sections are mounted in Phase 3. `preloaderDone` gates the hero shader. */}
-        <section className="section" id="hero" style={{ minHeight: '60vh' }} aria-label="Introduction" />
+        <Hero preloaderDone={preloaderDone} />
+        <About />
+        <Experience />
+        <Research />
+        <Projects />
+        <Skills />
+        <Education />
+        <Contact />
       </main>
 
       <Footer />
 
-      <Preloader onDone={() => setPreloaderDone(true)} data-active={preloaderDone} />
+      <Preloader onDone={() => setPreloaderDone(true)} />
     </MotionRoot>
   );
 }

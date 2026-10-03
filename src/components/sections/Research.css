@@ -1,0 +1,297 @@
+.research__intro {
+  display: grid;
+  gap: 1rem;
+  max-width: 74ch;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.research__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.2;
+}
+
+/* ------------------------------------------------------------- stat tiles -- */
+
+.research__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: clip;
+}
+
+.research__stat {
+  display: grid;
+  gap: 0.35rem;
+  align-content: start;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  background: var(--surface);
+}
+
+.research__stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  line-height: 1;
+  color: var(--accent);
+}
+
+.research__stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text);
+}
+
+.research__stat-hint {
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+}
+
+/* ---------------------------------------------------------------- charts -- */
+
+.research__charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.chart {
+  display: grid;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.chart__caption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.chart__rows {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.chart__row {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.chart__row-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.chart__bars {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.chart__bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.chart__bar-fill {
+  display: block;
+  height: 8px;
+  border-radius: 999px;
+  /* Bars grow from the left edge; transform-origin is what animates. */
+  transform-origin: left center;
+  background: var(--text-dim);
+}
+
+.chart__bar-value {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.chart__bar--dim .chart__bar-fill {
+  background: var(--text-dim);
+}
+
+.chart__bar--muted .chart__bar-fill {
+  background: color-mix(in srgb, var(--accent-2) 55%, transparent);
+}
+
+.chart__bar--accent .chart__bar-fill {
+  background: var(--accent);
+}
+
+.chart__bar--accent .chart__bar-value {
+  color: var(--accent);
+}
+
+.chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 0.5rem;
+}
+
+.chart__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-dim);
+}
+
+.chart__legend-swatch {
+  width: 14px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--text-dim);
+}
+
+.chart__legend-item.chart__bar--muted .chart__legend-swatch {
+  background: color-mix(in srgb, var(--accent-2) 55%, transparent);
+}
+
+.chart__legend-item.chart__bar--accent .chart__legend-swatch {
+  background: var(--accent);
+}
+
+/* --------------------------------------------------------- column chart -- */
+
+.chart__columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  align-items: end;
+}
+
+.chart__column {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+}
+
+.chart__column-value {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text);
+}
+
+.chart__column-track {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 140px;
+  padding: 0.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.chart__column-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  /* Grows upward from the baseline. */
+  transform-origin: bottom center;
+  background: color-mix(in srgb, var(--accent-2) 40%, transparent);
+}
+
+.chart__column-fill--high {
+  background: var(--accent);
+}
+
+.chart__column-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text);
+}
+
+.chart__column-range {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--text-dim);
+}
+
+.chart__note {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.chart-skeleton {
+  display: grid;
+  gap: 0.75rem;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  min-height: 320px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.chart-skeleton span {
+  display: block;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface-hover);
+}
+
+/* --------------------------------------------------------------- actions -- */
+
+.research__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.research__preview {
+  display: grid;
+  gap: 0.5rem;
+  width: min(280px, 100%);
+}
+
+.research__preview .smart-image {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.4s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.research__preview:hover .smart-image {
+  border-color: var(--border-strong);
+  transform: translateY(-4px);
+}
+
+.research__preview-caption {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-dim);
+}
+
+.research__caveat {
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: var(--text-dim);
+}
+
+.research__tags {
+  flex-basis: 100%;
+}

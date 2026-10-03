@@ -1,0 +1,87 @@
+.marquee-pair {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: clamp(3rem, 6vw, 4.5rem);
+}
+
+.marquee {
+  position: relative;
+  overflow: clip;
+  padding-block: 0.9rem;
+  border-block: 1px solid var(--border);
+  /* Fade the row out at both edges so the loop has no visible seam. */
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.marquee__group {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding-right: 2.5rem;
+}
+
+.marquee__item {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.marquee__item::before {
+  content: '◆';
+  margin-right: 2.5rem;
+  font-size: 0.5em;
+  color: var(--accent);
+  vertical-align: middle;
+}
+
+/* Reduced-motion fallback: a plain wrapped list, no transform loop. */
+.marquee--static {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 2rem;
+  padding-block: 1.5rem;
+  margin-bottom: clamp(3rem, 6vw, 4.5rem);
+  mask-image: none;
+  border-block: 1px solid var(--border);
+}
+
+.marquee--static .marquee__item::before {
+  display: none;
+}
+
+/* ----------------------------------------------------------- skills grid -- */
+
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: clip;
+}
+
+.skills__group {
+  display: grid;
+  gap: 0.85rem;
+  align-content: start;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  background: var(--bg-elevated);
+}
+
+.skills__label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}

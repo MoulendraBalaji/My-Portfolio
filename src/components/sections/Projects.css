@@ -1,0 +1,313 @@
+.projects {
+  padding-bottom: 0;
+}
+
+/* ------------------------------------------------------------ stack shell -- */
+
+.projects__stack {
+  position: relative;
+  /* No overflow/contain here — either would break every sticky child. */
+}
+
+.project-slot {
+  position: relative;
+}
+
+.project-slot.is-stacked {
+  position: sticky;
+  /* Clear the fixed nav on the very first card. */
+  top: 0;
+  height: 100vh;
+  display: grid;
+  place-items: start center;
+}
+
+.project-slot__sticky {
+  width: 100%;
+  display: grid;
+  place-items: start center;
+  padding-inline: clamp(1rem, 3vw, 2rem);
+}
+
+/* Cascading offset: each card sits 28px lower so the edges of the cards
+   behind it peek out above as a visible deck. */
+.project-slot.is-stacked .project-slot__sticky {
+  padding-top: calc(var(--nav-h) + 4vh + var(--slot-index) * 28px);
+}
+
+.project-slot.is-static .project-slot__sticky {
+  padding-block: 1rem;
+}
+
+/* ------------------------------------------------------------------ card -- */
+
+.project {
+  --mx: 50%;
+  --my: 50%;
+
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 1100px);
+  height: min(76vh, 620px);
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  overflow: clip;
+  will-change: transform;
+}
+
+.project-slot.is-static .project {
+  height: auto;
+  min-height: 0;
+}
+
+/* Per-card corner tint, alternating between the two accents. */
+.project--tint-violet {
+  background-image: radial-gradient(60% 50% at 100% 0%, rgba(124, 108, 255, 0.08), transparent 70%);
+}
+
+.project--tint-lime {
+  background-image: radial-gradient(60% 50% at 100% 0%, rgba(200, 255, 61, 0.06), transparent 70%);
+}
+
+.project__spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out);
+  background: radial-gradient(
+    24rem circle at var(--mx) var(--my),
+    rgba(124, 108, 255, 0.14),
+    transparent 60%
+  );
+}
+
+.project:hover .project__spotlight {
+  opacity: 1;
+}
+
+/* Overlay used for the dim-as-you-scroll effect (never a CSS filter). */
+.project__dim {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--bg);
+  pointer-events: none;
+}
+
+.project__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  height: 100%;
+}
+
+.project-slot.is-static .project__inner {
+  height: auto;
+}
+
+/* ------------------------------------------------------------------ text -- */
+
+.project__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.project__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.project__index {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+}
+
+.project__title {
+  position: relative;
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  line-height: 1.1;
+  display: inline;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  transition: background-size 0.6s var(--ease-out);
+}
+
+.project:hover .project__title {
+  background-size: 100% 1px;
+}
+
+.project__role {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-2);
+}
+
+.project__desc {
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+  /* Keep the card readable when it is the active one. */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.project__tech {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.project__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding-top: 0.5rem;
+}
+
+/* ---------------------------------------------------------------- visual -- */
+
+.project__visual {
+  min-width: 0;
+}
+
+.project__image-frame {
+  height: 100%;
+  overflow: clip;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.project__image-zoom {
+  height: 100%;
+  transition: transform 0.8s var(--ease-out);
+}
+
+.project:hover .project__image-zoom {
+  transform: scale(1.04);
+}
+
+.project__image-zoom .smart-image {
+  height: 100%;
+}
+
+/* ------------------------------------------------------------- more list -- */
+
+.projects__more {
+  display: grid;
+  gap: 0.75rem;
+  padding-block: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.projects__more ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+}
+
+.projects__more a {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  transition: color 0.4s var(--ease-out);
+}
+
+.projects__more a:hover {
+  color: var(--accent);
+}
+
+/* Lets the last card settle before the next section begins. */
+.projects__spacer {
+  height: 20vh;
+}
+
+/* ------------------------------------------------------------- responsive -- */
+
+@media (max-width: 1023px) {
+  .project__inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .project__desc {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .project__visual {
+    order: -1;
+  }
+
+  .project__image-frame {
+    aspect-ratio: 16 / 10;
+    height: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .project-slot.is-stacked {
+    height: auto;
+    display: block;
+    position: relative; /* short viewports fall back to a plain list */
+  }
+
+  .project-slot.is-stacked .project-slot__sticky {
+    padding-top: 1rem;
+  }
+
+  .project {
+    height: auto;
+  }
+
+  .project__tech {
+    margin-top: 0.5rem;
+  }
+}
+
+/* Reduced motion: a plain vertical list, no sticky, scaling, dimming or
+   parallax. Content order and reachability are unchanged. */
+@media (prefers-reduced-motion: reduce) {
+  .project-slot,
+  .project-slot.is-stacked {
+    position: relative;
+    height: auto;
+    display: block;
+  }
+
+  .project-slot__sticky,
+  .project-slot.is-stacked .project-slot__sticky {
+    padding-top: 1rem;
+    padding-block: 1rem;
+  }
+
+  .project {
+    height: auto;
+    transform: none !important;
+  }
+
+  .project__image-frame {
+    transform: none !important;
+  }
+
+  .project__dim {
+    display: none;
+  }
+
+  .projects__spacer {
+    height: 0;
+  }
+}

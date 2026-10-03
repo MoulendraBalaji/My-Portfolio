@@ -41,8 +41,8 @@
 }
 
 .btn--primary:hover {
-  --btn-bg: #d4ff5c;
-  --btn-border: #d4ff5c;
+  --btn-bg: var(--accent-hover);
+  --btn-border: var(--accent-hover);
 }
 
 .btn--ghost {
