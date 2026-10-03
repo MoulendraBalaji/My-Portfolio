@@ -16,6 +16,7 @@ export const meta = {
   canonical: 'https://moulendrabalajiportfolio.vercel.app/',
   themeColor: '#07080B',
   ogImage: '/images/brand/og-cover.png',
+  ogImageAlt: 'Moulendra Balaji — AI Engineer, machine learning and research',
   resume: '/Moulendra_Balaji_Resume.pdf'
   // TODO(moulendra): drop the PDF at public/Moulendra_Balaji_Resume.pdf, or send me a
   // hosted link and I will swap this constant. The Resume button hides itself until

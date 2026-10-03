@@ -9,6 +9,10 @@ import './components/layout/layout.css';
 import './components/ui/ui.css';
 import './components/sections/sections.css';
 import App from './App.jsx';
+import { meta } from './data/portfolio.js';
+import { applyMeta } from './lib/meta.js';
+
+applyMeta(meta);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
