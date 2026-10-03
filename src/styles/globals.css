@@ -35,7 +35,9 @@
   --font-mono: 'Geist Mono Variable', 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* Fluid type scale */
-  --text-hero: clamp(3rem, 9vw, 8rem);
+  /* Capped at 7.25rem so "Moulendra" (9 glyphs) clears the copy column at
+     1440px instead of running to the edge. */
+  --text-hero: clamp(2.75rem, 8.4vw, 7.25rem);
   --text-title: clamp(2.25rem, 5vw, 4.5rem);
   --text-sub: clamp(1.5rem, 3vw, 2.25rem);
   --text-lead: clamp(1.0625rem, 1.4vw, 1.125rem);

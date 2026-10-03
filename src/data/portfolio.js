@@ -511,6 +511,82 @@ export const projects = [
   }
 ];
 
+/* ------------------------------------------------------- projects index -- */
+
+/**
+ * The "Editorial Index" list — the eight rows rendered in the Projects section.
+ *
+ * Derived from `projects` above rather than re-declared, so descriptions, tech
+ * and image paths stay single-sourced and can never drift. `projects` remains
+ * the full audit list; this is the curated shortlist, ordered editorially.
+ *
+ * Order rationale: the published research paper leads (row 01), then the four
+ * projects that have a live demo, then the strongest single-domain pieces —
+ * chosen for spread across applied ML, edge/mobile, systems and security
+ * rather than a run of near-identical agent demos.
+ *
+ * `year` is deliberately absent: no project in `projects` carries one, and the
+ * field is omitted rather than invented. Add `year` to a project above and it
+ * will appear in the row's pill automatically.
+ */
+const INDEX_SLUGS = [
+  'query-portfolio-diversification',
+  'scrybe-io',
+  'drishti-transit',
+  'lunar-ice-engine',
+  'carbonpulse',
+  'ai-stadium-companion',
+  'conflict-free-collaborative-oltp',
+  'leaklens'
+];
+
+/**
+ * Turns the existing label-based `links` array into the `{live, code, paper}`
+ * shape the section needs. Labels are matched, not positions, so reordering a
+ * project's links can't silently point "Live demo" at a repo URL.
+ */
+function deriveLinks(project) {
+  const links = {};
+
+  for (const link of project.links ?? []) {
+    if (/read the paper|research paper/i.test(link.label)) links.paper = link.href;
+    else if (/live|demo/i.test(link.label)) links.live = link.href;
+    else if (/code/i.test(link.label)) links.code = link.href;
+  }
+
+  return links;
+}
+
+export const projectIndex = INDEX_SLUGS.map((slug, position) => {
+  const project = projects.find((entry) => entry.slug === slug);
+
+  if (!project) {
+    // Loud in dev, harmless in prod: a bad slug should not ship a blank row.
+    if (import.meta.env.DEV) {
+      console.warn(`[portfolio] projectIndex references unknown slug "${slug}"`);
+    }
+    return null;
+  }
+
+  return {
+    id: slug,
+    index: String(position + 1).padStart(2, '0'),
+    title: project.title,
+    category: project.category,
+    description: project.description,
+    tech: project.tech,
+    image: project.image,
+    links: deriveLinks(project)
+  };
+}).filter(Boolean);
+
+/** Shown only when the shortlist is a strict subset of the audit list. */
+export const projectsGithubUrl = contact.socials.find((s) => s.label === 'GitHub')?.href ?? '';
+
+export const projectsTotalCount = projects.length;
+
+export const projectsIndexHasMore = projectIndex.length < projectsTotalCount;
+
 /* --------------------------------------------------------------- skills -- */
 
 // Existing site taxonomy, preserved. FlyRank-derived tools (DuckDB, LightGBM,
@@ -573,7 +649,7 @@ export const sectionMeta = {
   about: { index: '01', label: 'About' },
   experience: { index: '02', label: 'Experience' },
   research: { index: '03', label: 'Research' },
-  projects: { index: '04', label: 'Projects' },
+  projects: { index: '04', label: 'Work' },
   skills: { index: '05', label: 'Skills' },
   achievements: { index: '06', label: 'Achievements' },
   contact: { index: '07', label: 'Contact' }

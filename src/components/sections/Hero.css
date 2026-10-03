@@ -28,10 +28,16 @@
   line-height: 0.92;
   letter-spacing: -0.03em;
   margin-bottom: 1.75rem;
+  /* Belt and braces: nothing in the name's ancestor chain may clip. The reveal
+     is opacity-based for exactly this reason — a mask here would be a gamble
+     on glyph ink fitting inside a line box. */
+  overflow: visible;
+  padding-block: 0.06em;
 }
 
 .hero__title-line {
   display: block;
+  overflow: visible;
 }
 
 /* Second line sits in lime to anchor the two-line lockup. */

@@ -1,281 +1,420 @@
-.projects {
-  padding-bottom: 0;
+/**
+ * Projects — "Editorial Index + Live Preview".
+ *
+ * No `position: sticky`, no `overflow` bookkeeping, and no scroll-linked values
+ * anywhere in this file. That is a hard rule for this section: the previous
+ * deck pinned every card at 100vh, which made the section ~17 viewports tall
+ * and left tall cards rendering as blank boxes when the sticky math went wrong.
+ *
+ * Only `transform`, `opacity` and `clip-path` are ever animated.
+ */
+
+/* ---------------------------------------------------------------- index -- */
+
+.index {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
 }
 
-/* ------------------------------------------------------------ stack shell -- */
-
-.projects__stack {
-  position: relative;
-  /* No overflow/contain here — either would break every sticky child. */
+.index__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.project-slot {
-  position: relative;
-}
+/* --- split layout (desktop) --------------------------------------------- */
 
-.project-slot.is-stacked {
-  position: sticky;
-  /* Clear the fixed nav on the very first card. */
-  top: 0;
-  height: 100vh;
+.index--split {
   display: grid;
-  place-items: start center;
+  grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+  align-items: start;
+  gap: clamp(2rem, 5vw, 5rem);
 }
 
-.project-slot__sticky {
+/* --- compact layout (mobile / tablet, set in JS) ------------------------- */
+
+.index--compact {
+  display: block;
+}
+
+/* ------------------------------------------------------------ list rows -- */
+
+.index__item {
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+
+.index__item:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.index__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto 2rem;
+  align-items: center;
+  gap: 0 clamp(0.75rem, 1.5vw, 1.5rem);
   width: 100%;
-  display: grid;
-  place-items: start center;
-  padding-inline: clamp(1rem, 3vw, 2rem);
+  padding-block: clamp(1rem, 2vw, 1.75rem);
+  min-height: 44px;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  opacity: 0.38;
+  transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Cascading offset: each card sits a little lower so the edges of the cards
-   behind it peek out above as a visible deck. The step is capped in vh, and the
-   index is capped too — with every project in the stack the raw index would
-   push the last cards clean off the screen. */
-.project-slot.is-stacked .project-slot__sticky {
-  padding-top: calc(
-    var(--nav-h) + 4vh + min(var(--slot-index), 4) * clamp(10px, 2.2vh, 24px)
-  );
+.index__row:hover {
+  opacity: 0.7;
 }
 
-.project-slot.is-static .project-slot__sticky {
-  padding-block: 1rem;
-}
-
-/* ------------------------------------------------------------------ card -- */
-
-.project {
-  --mx: 50%;
-  --my: 50%;
-  --wave-rgb: 200, 255, 61;
-
-  position: relative;
-  isolation: isolate;
-  width: min(100%, 1100px);
-  height: min(62vh, 560px);
-  padding: clamp(1.25rem, 2.5vw, 2rem);
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  overflow: clip;
-  will-change: transform;
-}
-
-.project-slot.is-static .project {
-  height: auto;
-  min-height: 0;
-}
-
-/* Per-card colour wave. Two offset radial lobes drifting across the card on
-   their own clock, tinted by --wave-rgb, which Projects.jsx sets per card and
-   desynchronises so neighbours never pulse together. Kept on the compositor and
-   stopped under reduced motion. */
-.project__wave {
-  position: absolute;
-  inset: -30%;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.5;
-  background: radial-gradient(
-    38% 44% at 22% 30%,
-    rgba(var(--wave-rgb), 0.26),
-    transparent 68%
-  );
-  animation: project-wave var(--wave-speed, 11s) ease-in-out infinite alternate;
-  animation-delay: var(--wave-delay, 0s);
-}
-
-.project__wave--mid {
-  opacity: 0.42;
-  background: radial-gradient(
-    42% 40% at 76% 68%,
-    rgba(var(--wave-rgb), 0.22),
-    transparent 70%
-  );
-  animation-duration: calc(var(--wave-speed, 11s) * 1.35);
-  animation-delay: calc(var(--wave-delay, 0s) * -1.6);
-}
-
-@keyframes project-wave {
-  from {
-    transform: translate3d(-5%, -3%, 0) scale(1);
-  }
-  to {
-    transform: translate3d(6%, 5%, 0) scale(1.16);
-  }
-}
-
-/* Accent keyline along the top edge, tinted to match the wave. */
-.project::after {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto;
-  z-index: 2;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(var(--wave-rgb), 0.85),
-    rgba(var(--wave-rgb), 0.05)
-  );
-  pointer-events: none;
-}
-
-.project__spotlight {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.45s var(--ease-out);
-  background: radial-gradient(
-    24rem circle at var(--mx) var(--my),
-    rgba(124, 108, 255, 0.14),
-    transparent 60%
-  );
-}
-
-.project:hover .project__spotlight {
+.index__row.is-active,
+.index__row:focus-visible {
   opacity: 1;
 }
 
-/* Overlay used for the dim-as-you-scroll effect (never a CSS filter). */
-.project__dim {
+.index__row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/*
+ * Active lime bar. `transform-origin: bottom` grows it downward from the row's
+ * top edge, so it reads as the row being selected rather than as decoration.
+ */
+.index__row::before {
+  content: '';
   position: absolute;
-  inset: 0;
-  z-index: 3;
-  background: var(--bg);
-  pointer-events: none;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: 50% 0%;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.project__inner {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: clamp(1.5rem, 3vw, 2.5rem);
-  height: 100%;
+.index__row.is-active::before {
+  transform: scaleY(1);
 }
 
-.project-slot.is-static .project__inner {
-  height: auto;
+/* Col 1 — mono index. */
+.index__index {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
-/* ------------------------------------------------------------------ text -- */
+/* Col 2 — title. */
+.index__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.6vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
 
-.project__text {
+.index__row.is-active .index__title {
+  transform: translateX(14px);
+}
+
+/* Col 3 — category / year pills. */
+.index__tags {
   display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  min-width: 0;
-}
-
-.project__meta {
-  display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
 }
 
-.project__index {
+.index__pill {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
-  letter-spacing: 0.1em;
-  color: var(--text-dim);
-}
-
-.project__title {
-  position: relative;
-  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
-  line-height: 1.08;
-  color: rgb(var(--wave-rgb));
-}
-
-.project__desc {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
   color: var(--text-muted);
-  font-size: 1rem;
-  max-width: 62ch;
-  /* Keep the card readable when it is the active one. */
+}
+
+/* Col 4 — arrow. */
+.index__arrow {
+  display: inline-flex;
+  color: var(--text-muted);
+  transform: rotate(-45deg);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.index__row.is-active .index__arrow {
+  transform: rotate(0deg);
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------------- panel -- */
+
+.preview {
+  position: relative;
+  /*
+   * Fixed height, deliberately. `AnimatePresence mode="wait"` keeps the exiting
+   * panel mounted while the entering one arrives, so if they were in normal
+   * flow the box would briefly hold two panels and jump. Pinning the inner
+   * absolutely means the two overlap exactly and the outer size never changes.
+   */
+  height: clamp(34rem, 46vw, 40rem);
+  border-radius: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  overflow: hidden;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.preview__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    120% 90% at 100% 0%,
+    color-mix(in oklab, var(--accent-2) 8%, transparent) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.preview__inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview__frame {
+  flex: 0 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
+  margin: 0.75rem 0.75rem 0;
+  aspect-ratio: 16 / 10;
+  background: var(--surface-hover);
+}
+
+.preview__frame-media {
+  height: 100%;
+}
+
+.preview__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  /* Clipped rather than allowed to grow: the box is fixed, so overflow must be
+     contained here or it would spill past the panel's rounded corner. */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+}
+
+.preview__counter {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.preview__counter-value {
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.preview__counter-category {
+  text-align: right;
+}
+
+.preview__desc {
+  font-size: var(--text-body);
+  color: var(--text-dim);
+  /* 2–3 lines; the panel height is fixed, so this must not grow. */
   display: -webkit-box;
-  -webkit-line-clamp: 5;
-  line-clamp: 5;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   overflow: hidden;
 }
 
-.project__actions {
+.preview__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.preview__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+/* ---------------------------------------------------------- accordion --- */
+
+.accordion__body {
+  display: grid;
+  /* 0fr -> 1fr animates without measuring a pixel. */
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.index__item[data-open='true'] .accordion__body {
+  grid-template-rows: 1fr;
+}
+
+/*
+ * Closed content must not be reachable. `visibility` is delayed past the
+ * collapse so the outgoing links stay clickable while the panel shuts, and
+ * hidden links drop out of the tab order entirely.
+ */
+.accordion__body-inner {
+  min-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: visibility 0s linear 0.45s;
+}
+
+.index__item[data-open='true'] .accordion__body-inner {
+  visibility: visible;
+  transition: visibility 0s linear 0s;
+}
+
+.accordion__frame {
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.accordion__counter {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.accordion__desc {
+  font-size: var(--text-body);
+  color: var(--text-dim);
+  margin-bottom: 0.9rem;
+}
+
+.accordion__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0 0 1.1rem;
+  padding: 0;
+}
+
+.accordion__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  margin-top: auto;
-  padding-top: 0.75rem;
 }
 
-/* Lets the last card settle before the next section begins. */
-.projects__spacer {
-  height: 20vh;
-}
-
-/* ------------------------------------------------------------- responsive -- */
+/* ------------------------------------------------------------ responsive -- */
 
 @media (max-width: 1023px) {
-  .project__desc {
-    -webkit-line-clamp: 4;
-    line-clamp: 4;
+  .index__row {
+    grid-template-columns: 2.5rem 1fr 2rem;
+  }
+
+  /* The category pill moves under the title rather than competing for width. */
+  .index__tags {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 0.6rem;
+  }
+
+  .index__arrow {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .index__body-wrap {
+    padding-bottom: 1rem;
+  }
+
+  .accordion__body-inner {
+    padding-bottom: 1.25rem;
   }
 }
 
-@media (max-width: 767px) {
-  .project-slot.is-stacked {
-    height: auto;
-    display: block;
-    position: relative; /* short viewports fall back to a plain list */
+@media (max-width: 560px) {
+  .index__title {
+    font-size: clamp(1.5rem, 7vw, 2rem);
   }
 
-  .project-slot.is-stacked .project-slot__sticky {
-    padding-top: 1rem;
-  }
-
-  .project {
-    height: auto;
-  }
-
-  .project__desc {
-    -webkit-line-clamp: 6;
-    line-clamp: 6;
+  .index__row {
+    grid-template-columns: 2rem 1fr 1.5rem;
+    gap: 0 0.75rem;
   }
 }
 
-/* Reduced motion: a plain vertical list, no sticky, scaling, dimming, waves or
-   parallax. Content order and reachability are unchanged. */
+/* --------------------------------------------------------- reduced motion -- */
+
 @media (prefers-reduced-motion: reduce) {
-  .project-slot,
-  .project-slot.is-stacked {
-    position: relative;
-    height: auto;
-    display: block;
+  .index__row,
+  .index__title,
+  .index__arrow,
+  .index__row::before {
+    transition: opacity 0.15s linear;
   }
 
-  .project-slot__sticky,
-  .project-slot.is-stacked .project-slot__sticky {
-    padding-top: 1rem;
-    padding-block: 1rem;
+  .index__row::before {
+    transition: none;
   }
 
-  .project {
-    height: auto;
-    transform: none !important;
+  .index__row.is-active .index__title {
+    transform: none;
   }
 
-  .project__wave {
-    animation: none;
+  .index__row.is-active .index__arrow {
+    transform: none;
   }
 
-  .project__dim {
-    display: none;
+  .index__row.is-active::before {
+    transform: none;
   }
 
-  .projects__spacer {
-    height: 0;
+  .accordion__body {
+    transition: none;
   }
+}
+
+/* ------------------------------------------------------------ more link -- */
+
+.projects__more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.projects__more-note {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
 }

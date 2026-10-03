@@ -28,12 +28,7 @@ Already real — no action needed:
 | `logos/` | Company / institution wordmarks |
 | `research/` | Paper preview figure, desktop + mobile crops |
 | `brand/` | Social share card (used by OG / Twitter tags) |
-| `projects/` | **Not currently rendered** — project cards are text-only (see below) |
-
-> **Projects are text-only.** Each card shows the project name, description and
-> links over a colour wave; there is no cover image. The `projects/` files are
-> kept so they are there if art is ever added back, but nothing loads them and
-> the `image` / `cover` fields in `src/data/portfolio.js` are currently unused.
+| `projects/` | One cover image per project row in the Projects index |
 
 ## Required sizes
 

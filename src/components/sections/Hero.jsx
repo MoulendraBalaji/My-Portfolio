@@ -43,12 +43,23 @@ export default function Hero({ preloaderDone }) {
             <span className="visually-hidden">
               {hero.name} {hero.nameAccent}
             </span>
-            <MaskedText as="span" className="hero__title-line" text={hero.name} play={preloaderDone} />
+            {/* mask={false}: the name must never lose a glyph. The masked variant
+                clips each word to its line box, and this headline runs at a tight
+                display line-height, so the box sits below the ascender line and
+                the dot of the "i" in "Balaji" gets shaved off. */}
+            <MaskedText
+              as="span"
+              className="hero__title-line"
+              text={hero.name}
+              play={preloaderDone}
+              mask={false}
+            />
             <MaskedText
               as="span"
               className="hero__title-line"
               text={hero.nameAccent}
               play={preloaderDone}
+              mask={false}
             />
           </h1>
 

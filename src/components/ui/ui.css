@@ -115,6 +115,17 @@
   border-color: color-mix(in srgb, var(--accent-2) 40%, transparent);
 }
 
+/** Mono hairline pill — used for tech tags in the Projects preview. */
+.chip--mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+  color: var(--text-muted);
+  border-color: var(--border-strong);
+}
+
 .chip-row {
   display: flex;
   flex-wrap: wrap;
@@ -186,6 +197,28 @@
 .masked__inner {
   display: inline-block;
   will-change: transform;
+}
+
+/*
+ * Unmasked variant (`<MaskedText mask={false}>`).
+ *
+ * Same upward travel, but opacity instead of a clip box, and crucially
+ * `overflow: visible`. The hero name uses this: with a mask, the clip is the
+ * line box, and tightening line-height to make the headline look right shrinks
+ * that box below the glyph ink — ascenders and the dot of an `i` get cut, and
+ * no amount of padding reliably fixes it because the box, not the ink, is what
+ * clips. Nothing clips here, so the name stays complete at any font or size.
+ */
+.masked__word--open {
+  overflow: visible;
+  line-height: inherit;
+  margin-block: 0;
+  vertical-align: baseline;
+}
+
+.masked__inner--open {
+  display: inline-block;
+  will-change: transform, opacity;
 }
 
 /* ------------------------------------------------------------- count-up -- */

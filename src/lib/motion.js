@@ -65,6 +65,23 @@ export const maskReveal = {
   }
 };
 
+/**
+ * Unmasked counterpart to `maskReveal`.
+ *
+ * Same upward travel, but opacity instead of a sliding clip box. Used wherever
+ * a headline must never lose a glyph: `overflow:hidden` on the word clips to
+ * the *line box*, and a display serif at tight line-heights has ink (ascenders,
+ * and the dot of an `i`) that reaches past it.
+ */
+export const riseReveal = {
+  hidden: { opacity: 0, y: 18 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: duration.slower, ease }
+  }
+};
+
 export const staggerWords = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.055, delayChildren: 0.1 } }
