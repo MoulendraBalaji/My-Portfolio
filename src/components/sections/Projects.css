@@ -113,8 +113,8 @@
 .index__title {
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 3.6vw, 3.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  line-height: 1.45;
+  letter-spacing: normal;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 

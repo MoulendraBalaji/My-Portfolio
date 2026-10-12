@@ -34,7 +34,8 @@ The result is a site that is quick to load, easy to keep current, and pleasant t
 - **Motion that means something** — scroll-linked parallax, mask-reveal headlines, magnetic buttons, spotlight cards and a sticky project stack, all driven by [`motion`](https://motion.dev/) and fully disabled under `prefers-reduced-motion`.
 - **One source of truth for content** — every headline, project, stat and link lives in [`src/data/portfolio.js`](src/data/portfolio.js). The project index is *derived* from that list, so descriptions and images can never drift.
 - **SEO without a server** — static Open Graph / Twitter tags ship in `index.html` for crawlers that don't run JS, and are kept in sync at runtime from the same data module.
-- **Zero third-party connections on first paint** — Geist, Geist Mono, Instrument Serif and Pacifico are bundled locally through Fontsource rather than pulled from a CDN.
+- **One brush-script voice** — the whole site renders in the Billabong-style *Pacifico* script (OFL), with every metric retuned so the tall ascenders and long descenders never collide. The face is bundled locally through Fontsource, and Geist / Geist Mono / Instrument Serif stay wired as alternate stacks.
+- **Zero third-party connections on first paint** — all font faces are self-hosted locally through Fontsource rather than pulled from a CDN.
 - **Accessible by default** — skip link, visible focus rings, a real focus trap in the mobile menu, semantic landmarks, 44px tap targets, and a strict reduced-motion path.
 - **Resilient details** — the résumé button hides itself until the PDF resolves, and project screenshots reserve their layout box up front, so nothing shifts on load.
 - **Considered design system** — a compact set of design tokens (*Midnight Ink* surfaces + *Acid Lime* accent) with a fluid type scale that carries from mobile to ultrawide.
@@ -49,7 +50,7 @@ The result is a site that is quick to load, easy to keep current, and pleasant t
 | **Motion** | `motion` (Framer Motion) — scroll & spring animations |
 | **Graphics** | `ogl` (WebGL slat backdrop) |
 | **Icons** | `lucide-react` |
-| **Typography** | Fontsource — Geist Variable, Geist Mono Variable, Instrument Serif, Pacifico |
+| **Typography** | Fontsource — **Pacifico** (Billabong-style script, site-wide); Geist Variable, Geist Mono Variable & Instrument Serif kept as alternate stacks |
 | **Styling** | Hand-written CSS with a design-token layer (`src/styles/globals.css`) |
 | **Tooling** | ESLint (flat config), npm |
 

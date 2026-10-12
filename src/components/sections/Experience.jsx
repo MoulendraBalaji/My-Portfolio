@@ -4,6 +4,7 @@ import { useRef } from 'react';
 
 import SectionHeading from './SectionHeading.jsx';
 import Reveal from '../ui/Reveal.jsx';
+import SmartImage from '../SmartImage/SmartImage.jsx';
 import { fadeUp, spring, staggerContainer } from '../../lib/motion';
 import { experience, sectionMeta } from '../../data/portfolio.js';
 import './Experience.css';
@@ -47,14 +48,29 @@ export default function Experience() {
 
               <article className="timeline__card">
                 <header className="timeline__head">
-                  <div className="timeline__heading">
-                    <h3 className="timeline__role">{role.role}</h3>
-                    <p className="timeline__company">
-                      <a href={role.companyUrl} target="_blank" rel="noopener noreferrer">
-                        {role.company}
-                        <ArrowUpRight size={13} strokeWidth={2} aria-hidden="true" />
-                      </a>
-                    </p>
+                  <div className="timeline__identity">
+                    {role.logo ? (
+                      <div className="timeline__logo">
+                        <SmartImage
+                          src={role.logo}
+                          alt=""
+                          ratio="415 / 118"
+                          width={136}
+                          height={39}
+                          fallbackText={role.company.slice(0, 2)}
+                        />
+                      </div>
+                    ) : null}
+
+                    <div className="timeline__heading">
+                      <h3 className="timeline__role">{role.role}</h3>
+                      <p className="timeline__company">
+                        <a href={role.companyUrl} target="_blank" rel="noopener noreferrer">
+                          {role.company}
+                          <ArrowUpRight size={13} strokeWidth={2} aria-hidden="true" />
+                        </a>
+                      </p>
+                    </div>
                   </div>
 
                   <div className="timeline__meta">
