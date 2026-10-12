@@ -1,53 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
-  <defs>
-    <!-- Background Gradient -->
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#05050a" />
-      <stop offset="50%" stop-color="#0a0a15" />
-      <stop offset="100%" stop-color="#121224" />
-    </linearGradient>
-    
-    <!-- Monogram Gradient (Matching the portfolio accents) -->
-    <linearGradient id="monoGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#818cf8" />
-      <stop offset="50%" stop-color="#c084fc" />
-      <stop offset="100%" stop-color="#f472b6" />
-    </linearGradient>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%" role="img" aria-label="Moulendra Balaji">
+  <!-- Midnight Ink surface, matching the site background tokens. -->
+  <rect x="16" y="16" width="480" height="480" rx="116" fill="#07080b" />
+  <rect x="16" y="16" width="480" height="480" rx="116" fill="none" stroke="#262a33" stroke-width="2" />
 
-    <!-- Sparkle/Accent Gradient -->
-    <linearGradient id="sparkleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="100%" stop-color="#f472b6" />
-    </linearGradient>
-
-    <!-- Border Gradient -->
-    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#818cf8" stop-opacity="0.8" />
-      <stop offset="50%" stop-color="#c084fc" stop-opacity="0.5" />
-      <stop offset="100%" stop-color="#f472b6" stop-opacity="0.2" />
-    </linearGradient>
-
-    <!-- Drop Shadow / Glow Filter -->
-    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#818cf8" flood-opacity="0.25" />
-    </filter>
-  </defs>
-
-  <!-- Outer Squircle Box with Gradient Border -->
-  <rect x="20" y="20" width="472" height="472" rx="120" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="10" />
-
-  <!-- Monogram Group with Glow -->
-  <g filter="url(#glow)">
-    <!-- Stylized lowercase "m" and "b" paths -->
-    <path d="M 120 350 L 120 250 C 120 195 180 195 180 250 L 180 350 M 180 250 C 180 195 240 195 240 250 L 240 350 L 300 350 L 300 160 M 300 255 C 335 255 375 265 375 302.5 C 375 340 335 350 300 350" 
-          fill="none" 
-          stroke="url(#monoGrad)" 
-          stroke-width="36" 
-          stroke-linecap="round" 
-          stroke-linejoin="round" />
-
-    <!-- Sparkle/AI Star -->
-    <path d="M 380 150 Q 380 180 410 180 Q 380 180 380 210 Q 380 180 350 180 Q 380 180 380 150 Z" 
-          fill="url(#sparkleGrad)" />
-  </g>
+  <!-- "mb" wordmark set in Pacifico, then outlined to a path so the favicon
+       renders the script everywhere without shipping a font with the icon. -->
+  <path
+    fill="#c8ff3d"
+    transform="translate(76.00 125.25) scale(0.27671) translate(-50.00 940.00)"
+    d="M119 5Q81 5 65.50-35Q50-75 50-163Q50-293 87-410Q96-439 116.50-452.50Q137-466 174-466Q194-466 202-461Q210-456 210-442Q210-426 195-370Q185-330 179-300.50Q173-271 169-227Q196-305 233.50-359Q271-413 310.50-439.50Q350-466 385-466Q420-466 434.50-450Q449-434 449-401Q449-369 430-285Q422-249 419-231Q469-354 530-410Q591-466 644-466Q709-466 709-401Q709-362 687-260Q668-173 668-145Q668-105 697-105Q717-105 744.50-129.50Q772-154 818-209Q830-223 845-223Q858-223 865.50-211Q873-199 873-178Q873-138 854-116Q811-63 761.50-29Q712 5 649 5Q598 5 572-24.50Q546-54 546-110Q546-138 560-210Q573-273 573-297Q573-313 562-313Q549-313 525-279.50Q501-246 477-191Q453-136 438-75Q427-27 412.50-11Q398 5 366 5Q333 5 316.50-26.50Q300-58 300-103Q300-141 310-213Q318-277 318-297Q318-313 307-313Q292-313 269-277Q246-241 224.50-185Q203-129 190-75Q179-28 164.50-11.50Q150 5 119 5M1324-307Q1337-307 1344-294Q1351-281 1351-261Q1351-236 1344-222.50Q1337-209 1322-204Q1262-183 1190-180Q1170-97 1114.50-46Q1059 5 992 5Q891 5 845-72Q799-149 799-295Q799-424 831-575.50Q863-727 924.50-833.50Q986-940 1071-940Q1117-940 1145-900.50Q1173-861 1173-798Q1173-716 1142-635Q1111-554 1039-465Q1106-460 1148-409.50Q1190-359 1198-285Q1245-288 1310-305Q1316-307 1324-307M1048-841Q1028-841 1004.50-781.50Q981-722 961-620Q941-518 931-397Q997-518 1036.50-610.50Q1076-703 1076-775Q1076-807 1068.50-824Q1061-841 1048-841M996-101Q1027-101 1051-127Q1075-153 1083-202Q1052-223 1035.50-257Q1019-291 1019-329Q1019-343 1023-367L1020-367Q979-367 951.50-326.50Q924-286 924-218Q924-161 945.50-131Q967-101 996-101"
+  />
 </svg>

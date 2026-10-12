@@ -33,6 +33,7 @@
   --font-display: 'Instrument Serif', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
   --font-body: 'Geist Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'Geist Mono Variable', 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-script: 'Pacifico', 'Brush Script MT', 'Segoe Script', cursive;
 
   /* Fluid type scale */
   /* Capped at 7.25rem so "Moulendra" (9 glyphs) clears the copy column at
