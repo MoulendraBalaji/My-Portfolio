@@ -25,15 +25,16 @@
   min-height: 44px;
 }
 
-.nav__monogram {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  line-height: 1;
+.nav__wordmark {
+  font-family: var(--font-script);
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  line-height: 1.2;
+  white-space: nowrap;
   color: var(--text);
   transition: color 0.4s var(--ease-out);
 }
 
-.nav__brand:hover .nav__monogram {
+.nav__brand:hover .nav__wordmark {
   color: var(--accent);
 }
 

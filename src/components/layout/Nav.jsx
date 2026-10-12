@@ -74,9 +74,7 @@ export default function Nav({ resumeAvailable = false }) {
     <header className="nav">
       <div className="nav__inner shell">
         <a className="nav__brand" href="#hero" aria-label="Moulendra Balaji — back to top">
-          <span className="nav__monogram" aria-hidden="true">
-            MB
-          </span>
+          <span className="nav__wordmark">Moulendra Balaji</span>
         </a>
 
         <nav className="nav__links" aria-label="Primary">
