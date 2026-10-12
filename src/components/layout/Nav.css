@@ -26,9 +26,9 @@
 }
 
 .nav__wordmark {
-  font-family: var(--font-script);
+  font-family: var(--font-body);
   font-size: clamp(1.05rem, 2.2vw, 1.3rem);
-  line-height: 1.35;
+  line-height: 1.2;
   white-space: nowrap;
   color: var(--text);
   transition: color 0.4s var(--ease-out);
@@ -139,9 +139,9 @@
   gap: 1rem;
   /* 44px minimum tap target */
   min-height: 56px;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(1.75rem, 8vw, 2.75rem);
-  line-height: 1.45;
+  line-height: 1.2;
   color: var(--text);
   border-bottom: 1px solid var(--border);
 }

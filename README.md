@@ -34,7 +34,7 @@ The result is a site that is quick to load, easy to keep current, and pleasant t
 - **Motion that means something** — scroll-linked parallax, mask-reveal headlines, magnetic buttons, spotlight cards and a sticky project stack, all driven by [`motion`](https://motion.dev/) and fully disabled under `prefers-reduced-motion`.
 - **One source of truth for content** — every headline, project, stat and link lives in [`src/data/portfolio.js`](src/data/portfolio.js). The project index is *derived* from that list, so descriptions and images can never drift.
 - **SEO without a server** — static Open Graph / Twitter tags ship in `index.html` for crawlers that don't run JS, and are kept in sync at runtime from the same data module.
-- **One brush-script voice** — the whole site renders in the Billabong-style *Pacifico* script (OFL), with every metric retuned so the tall ascenders and long descenders never collide. The face is bundled locally through Fontsource, and Geist / Geist Mono / Instrument Serif stay wired as alternate stacks.
+- **Brush-script accents, legible body** — the Billabong-style *Pacifico* script (OFL) is scoped to identity and headline accents only: the hero name, each section's heading + kicker, and the Experience job title. Everything else — body copy, form fields, nav links, buttons, badges and every figure — uses Geist for high-legibility text, with tabular numerals on metrics. Each script metric is retuned so the tall ascenders and long descenders never collide. All faces are bundled locally through Fontsource, and Geist Mono / Instrument Serif stay wired as alternate stacks.
 - **Zero third-party connections on first paint** — all font faces are self-hosted locally through Fontsource rather than pulled from a CDN.
 - **Accessible by default** — skip link, visible focus rings, a real focus trap in the mobile menu, semantic landmarks, 44px tap targets, and a strict reduced-motion path.
 - **Resilient details** — the résumé button hides itself until the PDF resolves, and project screenshots reserve their layout box up front, so nothing shifts on load.
@@ -50,7 +50,7 @@ The result is a site that is quick to load, easy to keep current, and pleasant t
 | **Motion** | `motion` (Framer Motion) — scroll & spring animations |
 | **Graphics** | `ogl` (WebGL slat backdrop) |
 | **Icons** | `lucide-react` |
-| **Typography** | Fontsource — **Pacifico** (Billabong-style script, site-wide); Geist Variable, Geist Mono Variable & Instrument Serif kept as alternate stacks |
+| **Typography** | Fontsource — **Geist Variable** for body + UI, with **Pacifico** (Billabong-style script) for the hero name, section headings/kickers and the Experience job title; Geist Mono Variable & Instrument Serif kept as alternate stacks |
 | **Styling** | Hand-written CSS with a design-token layer (`src/styles/globals.css`) |
 | **Tooling** | ESLint (flat config), npm |
 

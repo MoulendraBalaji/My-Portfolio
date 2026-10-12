@@ -13,6 +13,9 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  /* Kicker tag: the one per-section label that keeps the display script. */
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
 }
 
 .section-heading__index {
@@ -113,9 +116,10 @@
 }
 
 .about__stat-value {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(1.75rem, 3vw, 2.25rem);
-  line-height: 1.2;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
   color: var(--accent);
 }
 
@@ -130,7 +134,7 @@
 .about__stat-hint {
   font-size: 0.75rem;
   color: var(--text-dim);
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 @media (max-width: 900px) {
