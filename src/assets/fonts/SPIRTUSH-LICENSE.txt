@@ -1,0 +1,41 @@
+Spirtush — license notice
+=========================
+
+Font:        Spirtush (OTF/TTF/WOFF)
+Designer:    Hanief / Hanzel Space Studio
+Source:      https://hanzelspace.com/product/spirtush-handwritten-font/
+Obtained:    1001fonts.com download package (Spirtush.otf / Spirtush.ttf)
+Bundled as:  spirtush-latin.woff2 (WOFF2, converted from the supplied OTF)
+Bundle size: ~22 KB
+
+LICENSE (verbatim from the package README / PDF):
+
+  Hello Hanzel Space Font Downloader,
+  Please Read this first carefully before install the font. By installing or
+  using this font you agree to the Product Usage Agreement:
+  https://hanzelspace.com/
+
+  - This font is for PERSONAL USE ONLY and NO COMMERCIAL USE ALLOWED (If you
+    make money with my font please purchase the license)
+  - For more information please contact my email : hanzelgraphic@gmail.com
+  - For detail commercial use license please visit :
+    https://hanzelspace.com/product/spirtush-handwritten-font/
+
+  ATTENTION / WARNING:
+  Use of this font for COMMERCIAL purposes without permission (FOR ANY REASON)
+  will incur fees as determined by PDHI (Persatuan Desainer Huruf Indonesia),
+  or may be pursued through legal channels under Law No. 28 of 2014 on
+  Copyright.
+
+--------------------------------------------------------------------------
+WHAT THIS MEANS FOR THIS REPOSITORY
+--------------------------------------------------------------------------
+The font file above is redistributed here solely because this is a personal
+portfolio. It MUST NOT be used for commercial purposes, and the file should
+not be reused in a commercial or client project.
+
+For anything commercial, either:
+  * buy the commercial license from Hanzel Space Studio and drop the licensed
+    file in at src/assets/fonts/spirtush-latin.woff2, or
+  * swap --font-body in src/styles/globals.css for a commercial-safe face
+    (e.g. an SIL OFL handwritten sans) and delete this file.
