@@ -96,7 +96,7 @@ export const experience = [
     id: 'flyrank',
     company: 'FlyRank',
     companyUrl: 'https://flyrank.ai',
-    logo: '/images/logos/flyrank.svg',
+    logo: '/images/logos/flyrank-logo.svg',
     role: 'Machine Learning Intern',
     location: 'Hyderabad, India',
     start: 'June 2026',
@@ -629,7 +629,7 @@ export const education = [
     degree: 'B.Tech in Computer Science (AI & ML Specialization)',
     school: 'CRRAO AIMSCS, Hyderabad',
     period: '2024 – 2028',
-    logo: '/images/logos/crrao-aimscs.svg'
+    logo: '/images/logos/cr-logo.webp'
   }
 ];
 
