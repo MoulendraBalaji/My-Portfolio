@@ -29,15 +29,18 @@
   --glow-1: radial-gradient(60% 60% at 50% 0%, rgba(124, 108, 255, 0.18), transparent 70%);
   --glow-2: radial-gradient(50% 50% at 100% 100%, rgba(200, 255, 61, 0.08), transparent 70%);
 
-  /* Typography — the whole site now runs on the Billabong-style brush script, so
-     every role (display, body, mono) resolves to the one face. Billabong itself
-     is a commercial licence; Pacifico is the OFL stand-in used throughout. The
-     former stacks, kept for reference:
-       display: Instrument Serif · body: Geist · mono: Geist Mono */
+  /* Typography — the Billabong-style brush script is now a *display* face only.
+     It is reserved for identity and headline accents: the hero name, each
+     section's heading + kicker, and the Experience job title. Everything else —
+     body copy, descriptions, form fields, nav links, buttons, badges and every
+     figure — uses the legible sans stack so the site stays crisp and readable.
+     (Billabong is a commercial licence; Pacifico is the OFL stand-in.) */
   --font-script: 'Pacifico', 'Brush Script MT', 'Segoe Script', cursive;
   --font-display: var(--font-script);
-  --font-body: var(--font-script);
-  --font-mono: var(--font-script);
+  --font-body: 'Geist Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Labels, badges, nav links and metrics read as UI text, so they follow the
+     sans face rather than a monospace one. */
+  --font-mono: var(--font-body);
 
   /* Fluid type scale */
   /* Capped at 7.25rem so "Moulendra" (9 glyphs) clears the copy column at
@@ -104,11 +107,11 @@ h2,
 h3,
 h4 {
   font-weight: 400;
-  /* Pacifico's ink spans ~1.41em (tall ascenders + long descenders), so the old
-     tight leading would collide between wrapped lines. Tracking is reset too:
-     negative values jam the script's connecting strokes together. */
-  line-height: 1.45;
-  letter-spacing: normal;
+  /* Sans default. The three script headings (hero name, section titles, job
+     title) opt into a roomier leading — see `.display` below and the component
+     styles, since the brush script's ink spans ~1.4em. */
+  line-height: 1.25;
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 
@@ -220,6 +223,10 @@ body::before {
 .display {
   font-family: var(--font-display);
   font-size: var(--text-title);
+  /* Script headline: looser leading and no negative tracking, or the tall
+     ascenders / long descenders collide across wrapped lines. */
+  line-height: 1.55;
+  letter-spacing: normal;
 }
 
 .display em {

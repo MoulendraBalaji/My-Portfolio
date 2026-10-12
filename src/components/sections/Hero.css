@@ -24,8 +24,9 @@
 }
 
 .hero__title {
+  font-family: var(--font-display);
   font-size: var(--text-hero);
-  line-height: 1.45;
+  line-height: 1.5;
   letter-spacing: normal;
   margin-bottom: 1.75rem;
   /* Belt and braces: nothing in the name's ancestor chain may clip. The reveal

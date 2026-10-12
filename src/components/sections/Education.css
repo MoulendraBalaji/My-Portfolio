@@ -52,9 +52,9 @@
 }
 
 .edu__degree {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.25rem;
-  line-height: 1.45;
+  line-height: 1.25;
   margin-bottom: 0.35rem;
 }
 

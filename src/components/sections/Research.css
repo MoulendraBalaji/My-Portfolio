@@ -6,9 +6,9 @@
 }
 
 .research__title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(1.5rem, 3vw, 2.25rem);
-  line-height: 1.45;
+  line-height: 1.2;
 }
 
 /* ------------------------------------------------------------- stat tiles -- */
@@ -33,9 +33,10 @@
 }
 
 .research__stat-value {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(2.25rem, 4vw, 3rem);
-  line-height: 1.2;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
   color: var(--accent);
 }
 
@@ -189,6 +190,7 @@
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   color: var(--text);
+  font-variant-numeric: tabular-nums;
 }
 
 .chart__column-track {
@@ -228,6 +230,7 @@
   font-family: var(--font-mono);
   font-size: 0.625rem;
   color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
 }
 
 .chart__note {

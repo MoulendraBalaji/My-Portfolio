@@ -41,9 +41,9 @@
 }
 
 .smart-image__initials {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(2rem, 6vw, 3.5rem);
-  line-height: 1.3;
+  line-height: 1.1;
   color: var(--text);
   opacity: 0.9;
 }
