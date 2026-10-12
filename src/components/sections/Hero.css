@@ -25,8 +25,8 @@
 
 .hero__title {
   font-size: var(--text-hero);
-  line-height: 0.92;
-  letter-spacing: -0.03em;
+  line-height: 1.45;
+  letter-spacing: normal;
   margin-bottom: 1.75rem;
   /* Belt and braces: nothing in the name's ancestor chain may clip. The reveal
      is opacity-based for exactly this reason — a mask here would be a gamble

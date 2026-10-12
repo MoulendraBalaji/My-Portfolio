@@ -29,11 +29,15 @@
   --glow-1: radial-gradient(60% 60% at 50% 0%, rgba(124, 108, 255, 0.18), transparent 70%);
   --glow-2: radial-gradient(50% 50% at 100% 100%, rgba(200, 255, 61, 0.08), transparent 70%);
 
-  /* Typography */
-  --font-display: 'Instrument Serif', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
-  --font-body: 'Geist Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'Geist Mono Variable', 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  /* Typography — the whole site now runs on the Billabong-style brush script, so
+     every role (display, body, mono) resolves to the one face. Billabong itself
+     is a commercial licence; Pacifico is the OFL stand-in used throughout. The
+     former stacks, kept for reference:
+       display: Instrument Serif · body: Geist · mono: Geist Mono */
   --font-script: 'Pacifico', 'Brush Script MT', 'Segoe Script', cursive;
+  --font-display: var(--font-script);
+  --font-body: var(--font-script);
+  --font-mono: var(--font-script);
 
   /* Fluid type scale */
   /* Capped at 7.25rem so "Moulendra" (9 glyphs) clears the copy column at
@@ -77,6 +81,9 @@ body {
   font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.65;
+  /* The script ships one weight (400). Block the browser faking bold/oblique —
+     synthetic strokes muddy the connecting joins and can overlap them. */
+  font-synthesis: none;
   color: var(--text);
   background-color: var(--bg);
   -webkit-font-smoothing: antialiased;
@@ -97,8 +104,11 @@ h2,
 h3,
 h4 {
   font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  /* Pacifico's ink spans ~1.41em (tall ascenders + long descenders), so the old
+     tight leading would collide between wrapped lines. Tracking is reset too:
+     negative values jam the script's connecting strokes together. */
+  line-height: 1.45;
+  letter-spacing: normal;
   text-wrap: balance;
 }
 

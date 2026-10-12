@@ -115,7 +115,7 @@
 .about__stat-value {
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 3vw, 2.25rem);
-  line-height: 1;
+  line-height: 1.2;
   color: var(--accent);
 }
 
@@ -130,7 +130,7 @@
 .about__stat-hint {
   font-size: 0.75rem;
   color: var(--text-dim);
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 @media (max-width: 900px) {

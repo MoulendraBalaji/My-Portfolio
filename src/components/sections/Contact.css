@@ -25,7 +25,7 @@
 .contact__email {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-  line-height: 1.15;
+  line-height: 1.45;
   color: var(--text);
   /* Long address must be able to break. */
   overflow-wrap: anywhere;
