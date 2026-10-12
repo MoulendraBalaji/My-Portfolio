@@ -35,10 +35,10 @@
      (Billabong is a commercial licence; Pacifico is the OFL stand-in.) */
   --font-script: 'Pacifico', 'Brush Script MT', 'Segoe Script', cursive;
   --font-display: var(--font-script);
-  /* Body / UI — Spirtush, a handwritten sans. Self-hosted from
-     src/assets/fonts/ (licence: personal use only). Geist stays in the stack as
-     the fallback for any glyph Spirtush does not cover. */
-  --font-body: 'Spirtush', 'Geist Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Body / UI — Space Grotesk, a modern geometric grotesque that pairs with the
+     brush-script accents and this dark, neon-accented theme. Geist stays in the
+     stack as the fallback for any glyph Space Grotesk does not cover. */
+  --font-body: 'Space Grotesk Variable', 'Geist Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   /* Labels, badges, nav links and metrics read as UI text, so they follow the
      body face rather than a monospace one. */
   --font-mono: var(--font-body);

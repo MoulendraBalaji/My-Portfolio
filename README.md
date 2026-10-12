@@ -34,8 +34,8 @@ The result is a site that is quick to load, easy to keep current, and pleasant t
 - **Motion that means something** — scroll-linked parallax, mask-reveal headlines, magnetic buttons, spotlight cards and a sticky project stack, all driven by [`motion`](https://motion.dev/) and fully disabled under `prefers-reduced-motion`.
 - **One source of truth for content** — every headline, project, stat and link lives in [`src/data/portfolio.js`](src/data/portfolio.js). The project index is *derived* from that list, so descriptions and images can never drift.
 - **SEO without a server** — static Open Graph / Twitter tags ship in `index.html` for crawlers that don't run JS, and are kept in sync at runtime from the same data module.
-- **Brush-script accents, handwritten body** — the Billabong-style *Pacifico* script (OFL stand-in) is scoped to identity and headline accents only: the hero name, each section's heading + kicker, and the Experience job title. Everything else — body copy, form fields, nav links, buttons, badges and every figure — is set in **Spirtush**, a handwritten sans, with tabular numerals on metrics. Each script metric is retuned so the tall ascenders and long descenders never collide. Spirtush ships as a 22 KB latin WOFF2 under [`src/assets/fonts`](src/assets/fonts) — it is **free for personal use only** (see the licence note there) — with Geist kept as the glyph fallback. Geist Mono / Instrument Serif stay wired as alternate stacks.
-- **Zero third-party connections on first paint** — every font face is self-hosted (Fontsource packages plus the bundled Spirtush WOFF2) rather than pulled from a CDN.
+- **Brush-script accents, geometric body** — the Billabong-style *Pacifico* script (OFL stand-in) is scoped to identity and headline accents only: the hero name, each section's heading + kicker, and the Experience job title. Everything else — body copy, form fields, nav links, buttons, badges and every figure — is set in **Space Grotesk**, a geometric grotesque whose techy, editorial edge pairs with the brush script on this dark theme, with tabular numerals on metrics. Each script metric is retuned so the tall ascenders and long descenders never collide. Geist stays wired as the glyph fallback, and Geist Mono / Instrument Serif as alternate stacks.
+- **Zero third-party connections on first paint** — every font face is self-hosted through Fontsource rather than pulled from a CDN.
 - **Accessible by default** — skip link, visible focus rings, a real focus trap in the mobile menu, semantic landmarks, 44px tap targets, and a strict reduced-motion path.
 - **Resilient details** — the résumé button hides itself until the PDF resolves, and project screenshots reserve their layout box up front, so nothing shifts on load.
 - **Considered design system** — a compact set of design tokens (*Midnight Ink* surfaces + *Acid Lime* accent) with a fluid type scale that carries from mobile to ultrawide.
@@ -50,7 +50,7 @@ The result is a site that is quick to load, easy to keep current, and pleasant t
 | **Motion** | `motion` (Framer Motion) — scroll & spring animations |
 | **Graphics** | `ogl` (WebGL slat backdrop) |
 | **Icons** | `lucide-react` |
-| **Typography** | **Spirtush** (handwritten sans, self-hosted WOFF2 — *personal use only*) for body + UI, with **Pacifico** (Billabong-style script) for the hero name, section headings/kickers and the Experience job title; Geist Variable as glyph fallback, Geist Mono Variable & Instrument Serif kept as alternate stacks |
+| **Typography** | **Space Grotesk** (geometric grotesque, self-hosted via Fontsource) for body + UI, with **Pacifico** (Billabong-style script) for the hero name, section headings/kickers and the Experience job title; Geist Variable as glyph fallback, Geist Mono Variable & Instrument Serif kept as alternate stacks |
 | **Styling** | Hand-written CSS with a design-token layer (`src/styles/globals.css`) |
 | **Tooling** | ESLint (flat config), npm |
 

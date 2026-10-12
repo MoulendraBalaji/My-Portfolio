@@ -148,7 +148,9 @@
   }
 
   .hero__content {
-    grid-template-columns: 1fr;
+    /* minmax(0, 1fr) — a plain `1fr` sizes the track from min-content, so a
+       wide nowrap chip can blow the copy past the viewport. */
+    grid-template-columns: minmax(0, 1fr);
     gap: 2.5rem;
   }
 
@@ -160,5 +162,14 @@
 
   .hero__scroll {
     display: none;
+  }
+}
+
+/* Very small phones: let the accent pill wrap instead of pushing past the
+   viewport (Space Grotesk's caps are noticeably wider than Geist's). */
+@media (max-width: 480px) {
+  .hero__chip .chip {
+    white-space: normal;
+    text-align: center;
   }
 }
