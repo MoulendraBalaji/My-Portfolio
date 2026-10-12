@@ -29,17 +29,18 @@
   --glow-1: radial-gradient(60% 60% at 50% 0%, rgba(124, 108, 255, 0.18), transparent 70%);
   --glow-2: radial-gradient(50% 50% at 100% 100%, rgba(200, 255, 61, 0.08), transparent 70%);
 
-  /* Typography — the Billabong-style brush script is now a *display* face only.
+  /* Typography — the Billabong-style brush script is a *display* face only.
      It is reserved for identity and headline accents: the hero name, each
-     section's heading + kicker, and the Experience job title. Everything else —
-     body copy, descriptions, form fields, nav links, buttons, badges and every
-     figure — uses the legible sans stack so the site stays crisp and readable.
+     section's heading + kicker, and the Experience job title.
      (Billabong is a commercial licence; Pacifico is the OFL stand-in.) */
   --font-script: 'Pacifico', 'Brush Script MT', 'Segoe Script', cursive;
   --font-display: var(--font-script);
-  --font-body: 'Geist Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Body / UI — Spirtush, a handwritten sans. Self-hosted from
+     src/assets/fonts/ (licence: personal use only). Geist stays in the stack as
+     the fallback for any glyph Spirtush does not cover. */
+  --font-body: 'Spirtush', 'Geist Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   /* Labels, badges, nav links and metrics read as UI text, so they follow the
-     sans face rather than a monospace one. */
+     body face rather than a monospace one. */
   --font-mono: var(--font-body);
 
   /* Fluid type scale */

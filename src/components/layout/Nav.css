@@ -26,9 +26,9 @@
 }
 
 .nav__wordmark {
-  font-family: var(--font-body);
+  font-family: var(--font-script);
   font-size: clamp(1.05rem, 2.2vw, 1.3rem);
-  line-height: 1.2;
+  line-height: 1.35;
   white-space: nowrap;
   color: var(--text);
   transition: color 0.4s var(--ease-out);
